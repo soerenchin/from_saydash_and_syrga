@@ -164,56 +164,7 @@ if (stickyBtn) {
   });
 })();
 
-/* ── LOTTERY CANVAS (aurora section) ── */
-(function initLotteryCanvas() {
-  const canvas = document.getElementById('lotteryCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W, H, sparkles = [];
-
-  function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  function mkSparkle() {
-    const colors = ['200,230,252', '160,210,240', '220,240,255', '180,225,245'];
-    return {
-      x: Math.random() * W, y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.6,
-      vy: (Math.random() - 0.5) * 0.6,
-      r: Math.random() * 2.5 + 0.5,
-      alpha: Math.random() * 0.5 + 0.1,
-      da: (Math.random() * 0.005 + 0.002) * (Math.random() > 0.5 ? 1 : -1),
-      color: colors[Math.floor(Math.random() * colors.length)],
-    };
-  }
-  for (let i = 0; i < 100; i++) sparkles.push(mkSparkle());
-
-  function drawLotteryBg() {
-    ctx.clearRect(0, 0, W, H);
-    sparkles.forEach(s => {
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${s.color},${Math.max(0, s.alpha)})`;
-      ctx.fill();
-
-      s.x += s.vx; s.y += s.vy;
-      s.alpha += s.da;
-      if (s.alpha > 0.65 || s.alpha < 0.05) s.da *= -1;
-      if (s.x < -10) s.x = W + 10;
-      if (s.x > W + 10) s.x = -10;
-      if (s.y < -10) s.y = H + 10;
-      if (s.y > H + 10) s.y = -10;
-    });
-    requestAnimationFrame(drawLotteryBg);
-  }
-  drawLotteryBg();
-})();
-
-/* ── RSVP FORM & TICKET GENERATION ── */
+/* ── RSVP FORM ── */
 (function initRSVP() {
 
   // Show/hide +1 field
@@ -223,20 +174,6 @@ if (stickyBtn) {
     guestCountSel.addEventListener('change', () => {
       plusOneGroup.style.display = parseInt(guestCountSel.value) >= 2 ? '' : 'none';
     });
-  }
-
-  // Lottery number generator
-  function generateLotteryNumber() {
-    const prefix = String.fromCharCode(65 + Math.floor(Math.random() * 6)); // A–F
-    const existing = JSON.parse(localStorage.getItem('weddingTickets') || '[]');
-    let num;
-    do { num = Math.floor(Math.random() * 899) + 100; }
-    while (existing.includes(`${prefix}-${num}`));
-
-    const ticket = `${prefix}-${num}`;
-    existing.push(ticket);
-    localStorage.setItem('weddingTickets', JSON.stringify(existing));
-    return ticket;
   }
 
   // Validate
@@ -278,37 +215,6 @@ if (stickyBtn) {
     }
   }
 
-  // Show ticket modal
-  function showTicket(ticketNum, guestName, attending) {
-    if (attending !== 'yes') {
-      showDeclineMessage();
-      return;
-    }
-
-    const modal    = document.getElementById('ticketModal');
-    const numEl    = document.getElementById('ticketNumber');
-    const nameEl   = document.getElementById('ticketGuestName');
-    if (!modal) return;
-
-    numEl.textContent  = ticketNum;
-    nameEl.textContent = guestName;
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    launchTicketParticles();
-  }
-
-  function showDeclineMessage() {
-    const section = document.getElementById('rsvp');
-    if (!section) return;
-    const msg = document.createElement('div');
-    msg.style.cssText = `
-      text-align:center; padding: 32px; font-family: var(--font-serif);
-      font-size: 1.4rem; color: var(--text-mid); font-style:italic;
-    `;
-    msg.textContent = 'Жаль, что вы не сможете прийти. Желаем всего самого лучшего! 💙';
-    section.querySelector('.container').appendChild(msg);
-  }
-
   // Form submit
   const form = document.getElementById('rsvpForm');
   if (form) {
@@ -326,7 +232,6 @@ if (stickyBtn) {
 
       const attending = form.querySelector('[name="attending"]:checked')?.value || 'yes';
       const name      = form.guestName.value.trim();
-      const ticketNum = attending === 'yes' ? generateLotteryNumber() : null;
 
       const data = {
         name,
@@ -335,7 +240,6 @@ if (stickyBtn) {
         count:     form.guestCount?.value || '1',
         plusOne:   form.plusOneName?.value.trim() || '',
         wishes:    form.wishes?.value?.trim() || '',
-        ticket:    ticketNum,
       };
 
       try {
@@ -357,53 +261,7 @@ if (stickyBtn) {
     document.getElementById('rsvpSuccess').classList.remove('visible');
   });
 
-  // Close modal
-  document.getElementById('modalClose')?.addEventListener('click', () => {
-    document.getElementById('ticketModal').style.display = 'none';
-    document.body.style.overflow = '';
-  });
-
 })();
-
-/* ── TICKET PARTICLE BURST ── */
-function launchTicketParticles() {
-  const canvas = document.getElementById('ticketParticles');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.offsetWidth, H = canvas.offsetHeight;
-  canvas.width = W; canvas.height = H;
-
-  const colors = ['#7EC8E3','#A8D8EA','#C8E6F5','#FFD6E0','#B8E4F0','#E8F4FD'];
-  let parts = Array.from({ length: 120 }, () => ({
-    x: W / 2, y: H / 2,
-    vx: (Math.random() - 0.5) * 8,
-    vy: (Math.random() - 0.7) * 9,
-    r: Math.random() * 5 + 2,
-    color: colors[Math.floor(Math.random() * colors.length)],
-    alpha: 1, gravity: 0.15 + Math.random() * 0.1,
-  }));
-
-  let raf;
-  function drawBurst() {
-    ctx.clearRect(0, 0, W, H);
-    parts.forEach(p => {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.color;
-      ctx.globalAlpha = p.alpha;
-      ctx.fill();
-
-      p.x += p.vx; p.y += p.vy;
-      p.vy += p.gravity;
-      p.alpha -= 0.012;
-    });
-    ctx.globalAlpha = 1;
-    parts = parts.filter(p => p.alpha > 0);
-    if (parts.length) { raf = requestAnimationFrame(drawBurst); }
-    else { ctx.clearRect(0, 0, W, H); }
-  }
-  drawBurst();
-}
 
 /* ── SMOOTH PARALLAX ON HERO ── */
 (function initParallax() {
