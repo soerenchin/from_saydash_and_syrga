@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#FDFAF6" />
+  <meta name="description" content="Свадьба Сайдаш и Сырга — 02.08.2026" />
+  <title>Сайдаш & Сырга · 02.08.2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ░░ ENVELOPE INTRO ░░ -->
+<div id="envelope" class="envelope-screen">
+  <div class="envelope-card">
+    <div class="envelope-seal">✦</div>
+    <p class="envelope-pre">Дорогой гость,</p>
+    <p class="envelope-text">Вы получили приглашение на свадьбу</p>
+    <p class="envelope-names">Сайдаш & Сырга</p>
+    <p class="envelope-date">02 · 08 · 2026</p>
+    <div class="envelope-ornament"><span></span><span></span></div>
+    <button class="envelope-btn" id="openEnvelope">Открыть приглашение</button>
+  </div>
+</div>
+
+<!-- ░░ STICKY RSVP BUTTON ░░ -->
+<a href="#rsvp" class="sticky-rsvp" id="stickyRsvp">Подтвердить присутствие</a>
+
+<!-- ░░ MUSIC TOGGLE ░░ -->
+<button class="music-toggle" id="musicToggle" aria-label="Toggle music">
+  <svg id="musicIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  </svg>
+</button>
+<audio id="bgMusic" loop preload="none">
+  <source src="music.mp3" type="audio/mpeg" />
+</audio>
+
+<!-- ░░ HERO ░░ -->
+<section id="hero">
+  <canvas id="particleCanvas"></canvas>
+  <div class="hero-bg">
+    <img src="hero.webp" alt="Сайдаш & Сырга" class="hero-photo" />
+    <div class="hero-overlay"></div>
+    <div class="hero-glow-bottom"></div>
+  </div>
+  <div class="hero-content reveal">
+    <p class="hero-pre">с радостью приглашают вас</p>
+    <h1 class="hero-names">Сайдаш<span class="hero-amp">&</span>Сырга</h1>
+    <div class="hero-divider"><span></span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="2"/></svg><span></span></div>
+    <p class="hero-date">02 · 08 · 2026</p>
+    <p class="hero-place">Ресторан «Аристократ» · 17:00</p>
+  </div>
+  <div class="hero-scroll-hint">
+    <span>прокрутите</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ░░ WELCOME + COUNTDOWN ░░ -->
+<section id="welcome" class="section-light section-bg-photo">
+  <div class="photo-layer"></div>
+  <div class="container narrow reveal">
+    <div class="section-ornament top"></div>
+    <p class="eyebrow">дорогие гости</p>
+    <h2 class="section-title">Мы ждём вас!</h2>
+    <p class="welcome-text">
+      Приглашаем вас разделить с нами один из важнейших моментов нашей совместной жизни — свадьбу.
+      Будем безмерно рады видеть вас в этот особенный день рядом с нами.
+    </p>
+    <div class="section-ornament bottom"></div>
+    <p class="eyebrow" style="margin-top:36px">до свадьбы осталось</p>
+    <div class="countdown-grid">
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cDays">00</span>
+        <span class="countdown-label">дней</span>
+      </div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cHours">00</span>
+        <span class="countdown-label">часов</span>
+      </div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cMins">00</span>
+        <span class="countdown-label">минут</span>
+      </div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cSecs">00</span>
+        <span class="countdown-label">секунд</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ░░ PROGRAM / TIMELINE ░░ -->
+<section id="program" class="program-split reveal">
+  <div class="program-bg">
+    <img src="average.webp" alt="" class="program-bg-img">
+  </div>
+  <div class="program-overlay"></div>
+  <div class="program-content">
+    <p class="eyebrow">программа дня</p>
+    <h2 class="section-title">День торжества</h2>
+    <ul class="prog-list">
+      <li class="prog-item reveal-stagger"><span class="prog-time">08:00</span><span class="prog-sep">—</span><span class="prog-text">Утро жениха и невесты</span></li>
+      <li class="prog-item reveal-stagger"><span class="prog-time">10:00</span><span class="prog-sep">—</span><span class="prog-text">Выкуп невесты</span></li>
+      <li class="prog-item reveal-stagger"><span class="prog-time">13:00</span><span class="prog-sep">—</span><span class="prog-text">Регистрация брака</span></li>
+      <li class="prog-item reveal-stagger"><span class="prog-time">14:00</span><span class="prog-sep">—</span><span class="prog-text">Свадебный кортеж</span></li>
+      <li class="prog-item reveal-stagger"><span class="prog-time">17:00</span><span class="prog-sep">—</span><span class="prog-text">Сбор гостей в ресторане</span></li>
+      <li class="prog-item reveal-stagger"><span class="prog-time">18:00</span><span class="prog-sep">—</span><span class="prog-text">Начало праздничного банкета</span></li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- ░░ LOCATION ░░ -->
+<section id="location" class="section-light reveal">
+  <div class="container">
+    <p class="eyebrow">место торжества</p>
+    <h2 class="section-title">Ресторан «Аристократ»</h2>
+    <div class="location-grid">
+      <div class="location-info glass-card">
+        <div class="location-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <div>
+            <span class="loc-label">Адрес</span>
+            <span class="loc-val">ул. Каах-Хем 110</span>
+          </div>
+        </div>
+        <div class="location-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <div>
+            <span class="loc-label">Время сбора</span>
+            <span class="loc-val">17:00</span>
+          </div>
+        </div>
+        <div class="location-detail">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <div>
+            <span class="loc-label">Дата</span>
+            <span class="loc-val">2 августа 2026</span>
+          </div>
+        </div>
+        <a href="https://yandex.ru/maps/?text=%D1%83%D0%BB.+%D0%9A%D0%B0%D0%B0%D1%85-%D0%A5%D0%B5%D0%BC+110" target="_blank" rel="noopener" class="route-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18m-6-6 6 6-6 6"/></svg>
+          Маршрут
+        </a>
+      </div>
+      <div class="location-map glass-card">
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?ll=94.47&z=14&pt=94.47,51.72~pmwtm1~Ресторан Аристократ"
+          width="100%" height="100%" frameborder="0"
+          title="Расположение ресторана Аристократ"
+          loading="lazy"
+          style="border:none;border-radius:16px;">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ░░ DRESS CODE ░░ -->
+<section id="dresscode" class="dresscode-split reveal">
+  <div class="dresscode-bg">
+    <img src="dress.webp" alt="" class="dresscode-bg-img">
+  </div>
+  <div class="dresscode-overlay"></div>
+  <div class="dresscode-content">
+    <p class="eyebrow">стиль праздника</p>
+    <h2 class="section-title">Дресс-код</h2>
+    <p class="dresscode-quote">Торжество не подразумевает конкретного дресс-кода, но мы будем рады видеть мужчин в классическом, дам в вечерних нарядах.</p>
+  </div>
+</section>
+
+<!-- ░░ RSVP FORM ░░ -->
+<section id="rsvp" class="section-light reveal">
+  <div class="container narrow">
+    <p class="eyebrow">ваш ответ</p>
+    <h2 class="section-title">Подтверждение участия</h2>
+    <p class="section-sub">Пожалуйста, заполните форму до <strong>1 июля 2026</strong></p>
+
+    <form id="rsvpForm" class="rsvp-form glass-card" novalidate>
+
+      <div class="form-group">
+        <label for="guestName">Имя и Фамилия <span class="req">*</span></label>
+        <input type="text" id="guestName" name="guestName" placeholder="Например: Аяна Монгуш" required autocomplete="name" />
+      </div>
+
+      <div class="form-group">
+        <label for="relation">Кем приходитесь <span class="req">*</span></label>
+        <select id="relation" name="relation" required>
+          <option value="" disabled selected hidden>Выберите…</option>
+          <option value="Родственник со стороны жениха">Родственник со стороны жениха</option>
+          <option value="Родственник со стороны невесты">Родственник со стороны невесты</option>
+          <option value="Друг жениха">Друг жениха</option>
+          <option value="Подруга невесты">Подруга невесты</option>
+          <option value="Общий друг / подруга">Общий друг / подруга</option>
+          <option value="Коллега">Коллега</option>
+          <option value="Другое">Другое</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="guestCountGroup">
+        <label for="guestCount">Количество гостей (включая вас)</label>
+        <select id="guestCount" name="guestCount">
+          <option value="1" selected>1 гость (только я)</option>
+          <option value="2">2 гостя</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="plusOneGroup" style="display:none">
+        <label for="plusOneName">Имя и Фамилия +1 гостя</label>
+        <input type="text" id="plusOneName" name="plusOneName" placeholder="Имя вашего спутника(цы)" autocomplete="off" />
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="btn-text">Отправить</span>
+        <span class="btn-loading" style="display:none">Отправляем…</span>
+      </button>
+
+    </form>
+
+  </div>
+
+
+</section>
+
+<div id="rsvpSuccess" class="rsvp-success-overlay">
+  <button id="rsvpSuccessClose" class="rsvp-success-close">&times;</button>
+  <div class="rsvp-success-text">
+    <p>Спасибо что подтвердили своё присутствие, ждём вас в день свадьбы!</p>
+  </div>
+</div>
+
+
+<!-- ░░ FOOTER ░░ -->
+<footer id="footer">
+  <div class="footer-glow"></div>
+  <div class="container narrow">
+    <div class="footer-names">Сайдаш & Сырга</div>
+    <div class="footer-date">02 · 08 · 2026</div>
+    <div class="footer-divider"><span></span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="2"/></svg><span></span></div>
+    <a href="https://t.me/+dtw6w5zYnxM2MmYy" target="_blank" rel="noopener" class="footer-tg">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.88l-2.96-.924c-.643-.203-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.958.679z"/></svg>
+      Группа с новостями
+    </a>
+    <p class="footer-love">С любовью</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
