@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#FDFAF6" />
+  <meta name="theme-color" content="#FFFFFF" />
   <meta name="description" content="Свадьба Сайдаш и Сырга — 02.08.2026" />
   <title>Сайдаш & Сырга · 02.08.2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -16,22 +16,33 @@
 <!-- ░░ ENVELOPE INTRO ░░ -->
 <div id="envelope" class="envelope-screen">
   <div class="envelope-card">
-    <div class="envelope-seal">✦</div>
-    <p class="envelope-pre">Дорогой гость,</p>
-    <p class="envelope-text">Вы получили приглашение на свадьбу</p>
-    <p class="envelope-names">Сайдаш & Сырга</p>
-    <p class="envelope-date">02 · 08 · 2026</p>
-    <div class="envelope-ornament"><span></span><span></span></div>
-    <button class="envelope-btn" id="openEnvelope">Открыть приглашение</button>
+    <p class="envelope-title">ПРИГЛАШЕНИЕ<br>НА СВАДЬБУ</p>
+    <div class="envelope-body">
+      <div class="envelope-fold">
+        <div class="ef-top"></div>
+        <div class="ef-bottom"></div>
+        <div class="ef-left"></div>
+        <div class="ef-right"></div>
+        <div class="wax-seal">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="37" stroke="#C0BBB2" stroke-width="1"/>
+            <circle cx="40" cy="40" r="30" stroke="#C0BBB2" stroke-width="0.6" stroke-dasharray="2 3"/>
+            <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+                  font-family="Great Vibes, cursive" font-size="30" fill="#8C8780">С</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <button class="envelope-btn" id="openEnvelope">нажмите, чтобы открыть</button>
   </div>
 </div>
 
-<!-- ░░ STICKY RSVP BUTTON ░░ -->
+<!-- ░░ STICKY RSVP ░░ -->
 <a href="#rsvp" class="sticky-rsvp" id="stickyRsvp">Подтвердить присутствие</a>
 
 <!-- ░░ MUSIC TOGGLE ░░ -->
 <button class="music-toggle" id="musicToggle" aria-label="Toggle music">
-  <svg id="musicIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
     <path d="M9 18V5l12-2v13"/>
     <circle cx="6" cy="18" r="3"/>
     <circle cx="18" cy="16" r="3"/>
@@ -43,166 +54,226 @@
 
 <!-- ░░ HERO ░░ -->
 <section id="hero">
-  <canvas id="particleCanvas"></canvas>
   <div class="hero-bg">
     <img src="hero.webp" alt="Сайдаш & Сырга" class="hero-photo" />
     <div class="hero-overlay"></div>
-    <div class="hero-glow-bottom"></div>
   </div>
   <div class="hero-content reveal">
-    <p class="hero-pre"></p>
-    <h1 class="hero-names">Сайдаш<span class="hero-amp">&</span>Сырга</h1>
-    <div class="hero-divider"><span></span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="2"/></svg><span></span></div>
+    <h1 class="hero-names">Сайдаш <span class="hero-amp">&amp;</span> Сырга</h1>
+    <div class="hero-divider-line"></div>
     <p class="hero-date">02 · 08 · 2026</p>
-    <p class="hero-place">Ресторан «Аристократ» · 17:00</p>
   </div>
   <div class="hero-scroll-hint">
-    <span>прокрутите</span>
-    <div class="scroll-arrow"></div>
+    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.5">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
+  </div>
+  <div class="torn-bottom"></div>
+</section>
+
+<!-- ░░ WELCOME ░░ -->
+<section id="welcome" class="section-white">
+  <div class="wm-text">Wedding</div>
+  <div class="container narrow reveal">
+    <h2 class="section-heading">ДОРОГИЕ РОДНЫЕ<br>И ДРУЗЬЯ</h2>
+    <p class="welcome-text">
+      Наша история любви приводит нас к самому прекрасному моменту — созданию семьи. Мы счастливы пригласить вас разделить с нами самое счастливое мгновение в нашей жизни. Порадуйте нас своим присутствием!
+    </p>
   </div>
 </section>
 
-<!-- ░░ WELCOME + COUNTDOWN ░░ -->
-<section id="welcome" class="section-light section-bg-photo">
-  <div class="photo-layer"></div>
+<!-- ░░ CALENDAR ░░ -->
+<section id="calendar" class="section-white">
   <div class="container narrow reveal">
-    <div class="section-ornament top"></div>
-    <p class="eyebrow">дорогие гости</p>
-    <h2 class="section-title">Дорогие друзья, родные и близкие!</h2>
-    <p class="welcome-text">
-      Мы счастливы пригласить вас на нашу свадьбу. Для нас очень важно, чтобы вы смогли разделить с нами самое счастливое мгновение в нашей жизни. Порадуйте нас своим присутствием!
-    </p>
-    <div class="section-ornament bottom"></div>
-    <p class="eyebrow" style="margin-top:36px">до свадьбы осталось</p>
-    <div class="countdown-grid">
-      <div class="countdown-unit">
-        <span class="countdown-num" id="cDays">00</span>
-        <span class="countdown-label">дней</span>
+    <h2 class="section-heading">ПРИГЛАШАЕМ<br>ВАС НА СВАДЬБУ</h2>
+    <div class="calendar-wrap">
+      <div class="calendar-header">
+        <span class="cal-month">Август</span>
+        <span class="cal-year">2026</span>
       </div>
-      <div class="countdown-sep">·</div>
-      <div class="countdown-unit">
-        <span class="countdown-num" id="cHours">00</span>
-        <span class="countdown-label">часов</span>
-      </div>
-      <div class="countdown-sep">·</div>
-      <div class="countdown-unit">
-        <span class="countdown-num" id="cMins">00</span>
-        <span class="countdown-label">минут</span>
-      </div>
-      <div class="countdown-sep">·</div>
-      <div class="countdown-unit">
-        <span class="countdown-num" id="cSecs">00</span>
-        <span class="countdown-label">секунд</span>
+      <div class="calendar-grid">
+        <div class="cal-dow">ПН</div><div class="cal-dow">ВТ</div>
+        <div class="cal-dow">СР</div><div class="cal-dow">ЧТ</div>
+        <div class="cal-dow">ПТ</div><div class="cal-dow">СБ</div>
+        <div class="cal-dow">ВС</div>
+        <div class="cal-day empty"></div><div class="cal-day empty"></div>
+        <div class="cal-day empty"></div><div class="cal-day empty"></div>
+        <div class="cal-day empty"></div>
+        <div class="cal-day">1</div>
+        <div class="cal-day wedding-day">2</div>
+        <div class="cal-day">3</div><div class="cal-day">4</div>
+        <div class="cal-day">5</div><div class="cal-day">6</div>
+        <div class="cal-day">7</div><div class="cal-day">8</div>
+        <div class="cal-day">9</div>
+        <div class="cal-day">10</div><div class="cal-day">11</div>
+        <div class="cal-day">12</div><div class="cal-day">13</div>
+        <div class="cal-day">14</div><div class="cal-day">15</div>
+        <div class="cal-day">16</div>
+        <div class="cal-day">17</div><div class="cal-day">18</div>
+        <div class="cal-day">19</div><div class="cal-day">20</div>
+        <div class="cal-day">21</div><div class="cal-day">22</div>
+        <div class="cal-day">23</div>
+        <div class="cal-day">24</div><div class="cal-day">25</div>
+        <div class="cal-day">26</div><div class="cal-day">27</div>
+        <div class="cal-day">28</div><div class="cal-day">29</div>
+        <div class="cal-day">30</div>
+        <div class="cal-day">31</div>
       </div>
     </div>
   </div>
 </section>
 
-
-<!-- ░░ PROGRAM / TIMELINE ░░ -->
-<section id="program" class="program-split reveal">
-  <div class="program-bg">
-    <img src="average.webp" alt="" class="program-bg-img">
+<!-- ░░ TIMELINE ░░ -->
+<section id="program" class="section-white section-floral">
+  <div class="floral-layer">
+    <img src="average.webp" alt="" />
   </div>
-  <div class="program-overlay"></div>
-  <div class="program-content">
-    <p class="eyebrow">программа дня</p>
-    <h2 class="section-title">День торжества</h2>
-    <ul class="prog-list">
-      <li class="prog-item reveal-stagger"><span class="prog-time">08:00</span><span class="prog-sep">—</span><span class="prog-text">Утро жениха и невесты</span></li>
-      <li class="prog-item reveal-stagger"><span class="prog-time">10:00</span><span class="prog-sep">—</span><span class="prog-text">Выкуп невесты</span></li>
-      <li class="prog-item reveal-stagger"><span class="prog-time">13:00</span><span class="prog-sep">—</span><span class="prog-text">Регистрация брака</span></li>
-      <li class="prog-item reveal-stagger"><span class="prog-time">14:00</span><span class="prog-sep">—</span><span class="prog-text">Свадебный кортеж</span></li>
-      <li class="prog-item reveal-stagger"><span class="prog-time">16:00</span><span class="prog-sep">—</span><span class="prog-text">Сбор гостей в ресторане</span></li>
-      <li class="prog-item reveal-stagger"><span class="prog-time">17:00</span><span class="prog-sep">—</span><span class="prog-text">Начало праздничного банкета</span></li>
+  <div class="wm-text">Тайминг</div>
+  <div class="container narrow reveal">
+    <h2 class="section-heading">ТАЙМИНГ</h2>
+    <ul class="timeline-list">
+
+      <li class="timeline-item reveal-stagger">
+        <div class="tl-icon">
+          <!-- Sun / morning -->
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+            <circle cx="24" cy="24" r="7"/>
+            <line x1="24" y1="5" x2="24" y2="11"/>
+            <line x1="24" y1="37" x2="24" y2="43"/>
+            <line x1="5" y1="24" x2="11" y2="24"/>
+            <line x1="37" y1="24" x2="43" y2="24"/>
+            <line x1="10.5" y1="10.5" x2="14.7" y2="14.7"/>
+            <line x1="33.3" y1="33.3" x2="37.5" y2="37.5"/>
+            <line x1="37.5" y1="10.5" x2="33.3" y2="14.7"/>
+            <line x1="14.7" y1="33.3" x2="10.5" y2="37.5"/>
+          </svg>
+        </div>
+        <div class="tl-time">08:00</div>
+        <div class="tl-event">УТРО ЖЕНИХА И НЕВЕСТЫ</div>
+      </li>
+
+      <li class="timeline-item reveal-stagger">
+        <div class="tl-icon">
+          <!-- Key / diamond ring -->
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+            <circle cx="24" cy="20" r="10"/>
+            <path d="M18 20 L21 15 L24 18 L27 15 L30 20"/>
+            <line x1="24" y1="30" x2="24" y2="42"/>
+          </svg>
+        </div>
+        <div class="tl-time">10:00</div>
+        <div class="tl-event">ВЫКУП НЕВЕСТЫ</div>
+      </li>
+
+      <li class="timeline-item reveal-stagger">
+        <div class="tl-icon">
+          <!-- Wedding rings -->
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+            <circle cx="19" cy="24" r="9"/>
+            <circle cx="29" cy="24" r="9"/>
+          </svg>
+        </div>
+        <div class="tl-time">13:00</div>
+        <div class="tl-event">РЕГИСТРАЦИЯ БРАКА</div>
+      </li>
+
+      <li class="timeline-item reveal-stagger">
+        <div class="tl-icon">
+          <!-- Champagne glasses -->
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+            <path d="M16 8 L20 24 Q20 30 16 32"/>
+            <path d="M22 8 L18 24 Q18 30 22 32"/>
+            <line x1="14" y1="32" x2="24" y2="32"/>
+            <line x1="19" y1="32" x2="19" y2="40"/>
+            <path d="M26 8 L30 24 Q30 30 26 32"/>
+            <path d="M32 8 L28 24 Q28 30 32 32"/>
+            <line x1="24" y1="32" x2="34" y2="32"/>
+            <line x1="29" y1="32" x2="29" y2="40"/>
+          </svg>
+        </div>
+        <div class="tl-time">16:00</div>
+        <div class="tl-event">СБОР ГОСТЕЙ В РЕСТОРАНЕ</div>
+      </li>
+
+      <li class="timeline-item reveal-stagger">
+        <div class="tl-icon">
+          <!-- Plate + cutlery -->
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+            <circle cx="24" cy="24" r="10"/>
+            <line x1="10" y1="10" x2="10" y2="38"/>
+            <path d="M7 10 L7 21 Q10 25 13 21 L13 10"/>
+            <line x1="38" y1="10" x2="38" y2="38"/>
+            <path d="M35 10 L41 10 L41 19 Q41 23 38 23"/>
+          </svg>
+        </div>
+        <div class="tl-time">17:00</div>
+        <div class="tl-event">НАЧАЛО ПРАЗДНИЧНОГО БАНКЕТА</div>
+      </li>
+
     </ul>
   </div>
 </section>
 
-
 <!-- ░░ LOCATION ░░ -->
-<section id="location" class="section-light reveal">
-  <div class="container">
-    <p class="eyebrow">место торжества</p>
-    <h2 class="section-title">Ресторан «Аристократ»</h2>
-    <div class="location-grid">
-      <div class="location-info glass-card">
-        <div class="location-detail">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <div>
-            <span class="loc-label">Адрес</span>
-            <span class="loc-val">г. Кызыл, ул. Каа-Хем 110</span>
-          </div>
-        </div>
-        <div class="location-detail">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          <div>
-            <span class="loc-label">Время сбора</span>
-            <span class="loc-val">16:00</span>
-          </div>
-        </div>
-        <div class="location-detail">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          <div>
-            <span class="loc-label">Начало банкета</span>
-            <span class="loc-val">17:00</span>
-          </div>
-        </div>
-        <div class="location-detail">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          <div>
-            <span class="loc-label">Дата</span>
-            <span class="loc-val">2 августа 2026</span>
-          </div>
-        </div>
-        <a href="https://yandex.ru/maps/org/aristokrat/79589704741/?ll=94.456810%2C51.702763&z=17" target="_blank" rel="noopener" class="route-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12h18m-6-6 6 6-6 6"/></svg>
-          Маршрут
-        </a>
+<section id="location" class="section-white reveal">
+  <div class="container narrow">
+    <h2 class="section-heading">ЖДЁМ ВАС<br>ПО АДРЕСУ</h2>
+    <p class="location-addr">г. Кызыл, ул. Каа-Хем 110<br>Ресторан «Аристократ»</p>
+    <div class="location-details-centered">
+      <div class="loc-row">
+        <span class="loc-label">Дата</span>
+        <span class="loc-val">2 августа 2026</span>
       </div>
-      <div class="location-map glass-card">
-        <iframe
-          src="https://yandex.ru/map-widget/v1/?ll=94.456810%2C51.702763&z=17&ol=biz&oid=79589704741"
-          width="100%" height="100%" frameborder="0"
-          title="Расположение ресторана Аристократ"
-          loading="lazy"
-          style="border:none;border-radius:16px;">
-        </iframe>
+      <div class="loc-row">
+        <span class="loc-label">Сбор гостей</span>
+        <span class="loc-val">16:00</span>
       </div>
+      <div class="loc-row">
+        <span class="loc-label">Начало банкета</span>
+        <span class="loc-val">17:00</span>
+      </div>
+      <a href="https://yandex.ru/maps/org/aristokrat/79589704741/?ll=94.456810%2C51.702763&z=17"
+         target="_blank" rel="noopener" class="route-btn">Построить маршрут →</a>
     </div>
   </div>
 </section>
 
-
 <!-- ░░ DRESS CODE ░░ -->
-<section id="dresscode" class="dresscode-split reveal">
-  <div class="dresscode-bg">
-    <img src="dress.webp" alt="" class="dresscode-bg-img">
-  </div>
-  <div class="dresscode-overlay"></div>
-  <div class="dresscode-content">
-    <p class="eyebrow">стиль праздника</p>
-    <h2 class="section-title">Дресс-код</h2>
-    <p class="dresscode-quote">Торжество не подразумевает конкретного дресс-кода, но мы будем рады видеть мужчин в классическом, дам в вечерних нарядах.</p>
+<section id="dresscode" class="section-white reveal">
+  <div class="wm-text">Стиль</div>
+  <div class="container narrow">
+    <h2 class="section-heading">ДРЕСС-КОД</h2>
+    <p class="dresscode-text">
+      Торжество не подразумевает конкретного дресс-кода, но мы будем рады видеть мужчин в классическом, дам в вечерних нарядах.
+    </p>
+    <div class="swatch-grid">
+      <div class="swatch" style="--c:#6B4F3E" title="Тёмно-коричневый"></div>
+      <div class="swatch" style="--c:#9A8C80" title="Серо-бежевый"></div>
+      <div class="swatch" style="--c:#C9A84C" title="Золотой"></div>
+      <div class="swatch" style="--c:#D4A8A8" title="Пыльная роза"></div>
+      <div class="swatch" style="--c:#3B5144" title="Тёмно-зелёный"></div>
+      <div class="swatch" style="--c:#708C70" title="Шалфей"></div>
+      <div class="swatch" style="--c:#C89888" title="Персиковый"></div>
+      <div class="swatch" style="--c:#B0C4D0" title="Голубой"></div>
+    </div>
   </div>
 </section>
 
 <!-- ░░ RSVP FORM ░░ -->
-<section id="rsvp" class="section-light reveal">
+<section id="rsvp" class="section-white reveal">
   <div class="container narrow">
-    <p class="eyebrow">ваш ответ</p>
-    <h2 class="section-title">Подтверждение участия</h2>
-    <p class="section-sub">Пожалуйста, заполните форму до <strong>1 июля 2026</strong></p>
+    <h2 class="section-heading">АНКЕТА</h2>
+    <p class="section-sub">Будем благодарны, если вы подтвердите своё присутствие до <strong>1 июля 2026</strong></p>
 
-    <form id="rsvpForm" class="rsvp-form glass-card" novalidate>
+    <form id="rsvpForm" class="rsvp-form" novalidate>
 
       <div class="form-group">
-        <label for="guestName">Имя и Фамилия <span class="req">*</span></label>
-        <input type="text" id="guestName" name="guestName" placeholder="Например: Аяна Монгуш" required autocomplete="name" />
+        <label for="guestName">Ваше имя и фамилия</label>
+        <input type="text" id="guestName" name="guestName" placeholder="Аяна Монгуш" required autocomplete="name" />
       </div>
 
       <div class="form-group">
-        <label for="relation">Кем приходитесь <span class="req">*</span></label>
+        <label for="relation">Кем приходитесь</label>
         <select id="relation" name="relation" required>
           <option value="" disabled selected hidden>Выберите…</option>
           <option value="Родственник со стороны жениха">Родственник со стороны жениха</option>
@@ -215,6 +286,20 @@
         </select>
       </div>
 
+      <div class="form-group">
+        <label>Сможете ли вы присутствовать на торжестве?</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="attending" value="yes" required />
+            <span class="radio-box">Обязательно приду</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="attending" value="no" />
+            <span class="radio-box">К сожалению, не смогу</span>
+          </label>
+        </div>
+      </div>
+
       <div class="form-group" id="guestCountGroup">
         <label for="guestCount">Количество гостей (включая вас)</label>
         <select id="guestCount" name="guestCount">
@@ -224,7 +309,7 @@
       </div>
 
       <div class="form-group" id="plusOneGroup" style="display:none">
-        <label for="plusOneName">Имя и Фамилия +1 гостя</label>
+        <label for="plusOneName">Имя и фамилия +1 гостя</label>
         <input type="text" id="plusOneName" name="plusOneName" placeholder="Имя вашего спутника(цы)" autocomplete="off" />
       </div>
 
@@ -234,10 +319,7 @@
       </button>
 
     </form>
-
   </div>
-
-
 </section>
 
 <div id="rsvpSuccess" class="rsvp-success-overlay">
@@ -247,19 +329,46 @@
   </div>
 </div>
 
+<!-- ░░ COUNTDOWN ░░ -->
+<section id="countdown-section" class="section-photo-mid">
+  <div class="photo-bg-mid">
+    <img src="dress.webp" alt="" />
+  </div>
+  <div class="photo-mid-overlay"></div>
+  <div class="container narrow reveal">
+    <h2 class="section-heading-white">ДО СВАДЬБЫ<br>ОСТАЛОСЬ</h2>
+    <div class="countdown-grid">
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cDays">00</span>
+        <span class="countdown-label">дней</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cHours">00</span>
+        <span class="countdown-label">часов</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cMins">00</span>
+        <span class="countdown-label">минут</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cSecs">00</span>
+        <span class="countdown-label">секунд</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ░░ FOOTER ░░ -->
 <footer id="footer">
-  <div class="footer-glow"></div>
   <div class="container narrow">
     <div class="footer-names">Сайдаш & Сырга</div>
     <div class="footer-date">02 · 08 · 2026</div>
-    <div class="footer-divider"><span></span><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="2"/></svg><span></span></div>
+    <div class="footer-line"></div>
     <a href="https://t.me/+dtw6w5zYnxM2MmYy" target="_blank" rel="noopener" class="footer-tg">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.88l-2.96-.924c-.643-.203-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.958.679z"/></svg>
       Группа с новостями
     </a>
-    <p class="footer-love">С любовью</p>
+    <p class="footer-love">С любовью ♡</p>
   </div>
 </footer>
 

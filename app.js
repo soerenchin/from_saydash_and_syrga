@@ -51,61 +51,26 @@ if (stickyBtn) {
   }, { passive: true });
 }
 
-/* ── HERO PARTICLE CANVAS ── */
-(function initHeroParticles() {
-  const canvas = document.getElementById('particleCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W, H, particles = [];
-
-  function resize() {
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  function createParticle() {
-    return {
-      x: Math.random() * W,
-      y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: -Math.random() * 0.5 - 0.1,
-      r: Math.random() * 2 + 0.5,
-      alpha: Math.random() * 0.6 + 0.1,
-      color: Math.random() > 0.5 ? '200,235,252' : '255,255,255',
-    };
-  }
-
-  const particleCount = window.innerWidth < 768 ? 32 : 80;
-  for (let i = 0; i < particleCount; i++) particles.push(createParticle());
-
-  let heroVisible = true;
-  const hero = document.getElementById('hero');
-  if (hero && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; })
-      .observe(hero);
-  }
-
-  function draw() {
-    if (heroVisible && !document.hidden) {
-      ctx.clearRect(0, 0, W, H);
-      particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
-        ctx.fill();
-
-        p.x += p.vx;
-        p.y += p.vy;
-        p.alpha -= 0.001;
-
-        if (p.y < -10 || p.alpha <= 0) Object.assign(p, createParticle(), { y: H + 10 });
+/* ── ПЛАВНЫЙ ПАРАЛЛАКС НА ГЕРОЕ ── */
+(function initHeroParallax() {
+  const photo = document.querySelector('.hero-photo');
+  if (!photo
+    || window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) return;
+  photo.style.willChange = 'transform';
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y < window.innerHeight * 1.2) {
+          photo.style.transform = `translate3d(0,${y * 0.28}px,0)`;
+        }
+        ticking = false;
       });
+      ticking = true;
     }
-    requestAnimationFrame(draw);
-  }
-  draw();
+  }, { passive: true });
 })();
 
 /* ── COUNTDOWN ── */
@@ -134,10 +99,9 @@ if (stickyBtn) {
       if (!el) return;
       const str = pad(val);
       if (el.textContent !== str) {
-        el.style.transform = 'scale(1.15)';
-        el.style.color = 'var(--blue-deep)';
+        el.classList.add('tick');
         el.textContent = str;
-        setTimeout(() => { el.style.transform = ''; el.style.color = ''; }, 200);
+        setTimeout(() => el.classList.remove('tick'), 260);
       }
     });
   }
@@ -263,28 +227,6 @@ if (stickyBtn) {
 
 })();
 
-/* ── SMOOTH PARALLAX ON HERO ── */
-(function initParallax() {
-  const photo = document.querySelector('.hero-photo');
-  if (!photo
-    || window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) return;
-
-  photo.style.willChange = 'transform';
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const y = window.scrollY;
-        if (y < window.innerHeight) {
-          photo.style.transform = `translate3d(0,${y * 0.3}px,0)`;
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
-})();
 
 /* ── START ── */
 document.addEventListener('DOMContentLoaded', () => {
