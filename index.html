@@ -6,6 +6,15 @@
   <meta name="theme-color" content="#FFFFFF" />
   <meta name="description" content="Свадьба Сайдаш и Сырга — 02.08.2026" />
   <title>Сайдаш & Сырга · 02.08.2026</title>
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Сайдаш & Сырга · 02.08.2026" />
+  <meta property="og:description" content="Приглашаем вас разделить с нами самый счастливый день — 2 августа 2026 года." />
+  <meta property="og:image" content="hero.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Great+Vibes&family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -49,7 +58,7 @@
   </svg>
 </button>
 <audio id="bgMusic" loop preload="none">
-  <source src="music.mp3" type="audio/mpeg" />
+  <source src="new.mp3" type="audio/mpeg" />
 </audio>
 
 <!-- ░░ HERO ░░ -->
@@ -70,6 +79,18 @@
   <div class="torn-bottom"></div>
 </section>
 
+<!-- ░░ ROSE BLOOM ░░ -->
+<section id="rose-bloom">
+  <div class="rose-scene">
+    <div class="rose" id="rose">
+      <div class="rose-stem"></div>
+      <span class="rose-leaf left"></span>
+      <span class="rose-leaf right"></span>
+      <!-- лепестки и серединка генерируются в app.js -->
+    </div>
+  </div>
+</section>
+
 <!-- ░░ WELCOME ░░ -->
 <section id="welcome" class="section-white">
   <div class="wm-text">Wedding</div>
@@ -78,6 +99,14 @@
     <p class="welcome-text">
       Наша история любви приводит нас к самому прекрасному моменту — созданию семьи. Мы счастливы пригласить вас разделить с нами самое счастливое мгновение в нашей жизни. Порадуйте нас своим присутствием!
     </p>
+    <div class="welcome-photos reveal">
+      <div class="welcome-photo">
+        <img src="per1.webp" alt="Сайдаш и Сырга" loading="lazy" />
+      </div>
+      <div class="welcome-photo">
+        <img src="per2.webp" alt="Сайдаш и Сырга" loading="lazy" />
+      </div>
+    </div>
   </div>
 </section>
 
@@ -125,7 +154,7 @@
 <!-- ░░ TIMELINE ░░ -->
 <section id="program" class="section-white section-floral">
   <div class="floral-layer">
-    <img src="average.webp" alt="" />
+    <img src="average.webp" alt="" loading="lazy" />
   </div>
   <div class="container narrow reveal">
     <h2 class="section-heading">ТАЙМИНГ</h2>
@@ -232,6 +261,9 @@
     <p class="dresscode-text">
       Торжество не подразумевает конкретного дресс-кода, но мы будем рады видеть мужчин в классическом, дам в вечерних нарядах.
     </p>
+    <div class="dresscode-photo">
+      <img src="dress.webp" alt="Сайдаш и Сырга" loading="lazy" />
+    </div>
   </div>
 </section>
 
@@ -292,13 +324,10 @@
 </div>
 
 <!-- ░░ COUNTDOWN ░░ -->
-<section id="countdown-section" class="section-photo-mid">
-  <div class="photo-bg-mid">
-    <img src="dress.webp" alt="" />
-  </div>
-  <div class="photo-mid-overlay"></div>
+<section id="countdown-section" class="section-white">
+  <div class="wm-text">Countdown</div>
   <div class="container narrow reveal">
-    <h2 class="section-heading-white">ДО СВАДЬБЫ<br>ОСТАЛОСЬ</h2>
+    <h2 class="section-heading">ДО СВАДЬБЫ<br>ОСТАЛОСЬ</h2>
     <div class="countdown-grid">
       <div class="countdown-unit">
         <span class="countdown-num" id="cDays">00</span>
