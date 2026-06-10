@@ -5,6 +5,35 @@
 
 'use strict';
 
+/* ── ФОНОВАЯ МУЗЫКА: старт с 21-й секунды + плавное нарастание громкости ── */
+const MUSIC_VOLUME = 0.3;
+const MUSIC_START_TIME = 0;
+
+function playMusicWithFade(audio) {
+  const setStart = () => {
+    if (audio.currentTime < MUSIC_START_TIME) {
+      audio.currentTime = MUSIC_START_TIME;
+    }
+  };
+
+  if (audio.readyState >= 1) setStart();
+  else audio.addEventListener('loadedmetadata', setStart, { once: true });
+
+  audio.volume = 0;
+  audio.play().then(() => {
+    const fadeStep = 0.02;
+    const fade = setInterval(() => {
+      const next = audio.volume + fadeStep;
+      if (next >= MUSIC_VOLUME) {
+        audio.volume = MUSIC_VOLUME;
+        clearInterval(fade);
+      } else {
+        audio.volume = next;
+      }
+    }, 120);
+  }).catch(() => {});
+}
+
 /* ── ENVELOPE INTRO ── */
 document.getElementById('openEnvelope')?.addEventListener('click', () => {
   const envelope = document.getElementById('envelope');
@@ -16,9 +45,11 @@ document.getElementById('openEnvelope')?.addEventListener('click', () => {
   const audio = document.getElementById('bgMusic');
   const btn = document.getElementById('musicToggle');
   if (audio) {
-    audio.volume = 0.3;
-    audio.play().catch(() => {});
-    if (btn) btn.style.opacity = '1';
+    playMusicWithFade(audio);
+    if (btn) {
+      btn.style.opacity = '1';
+      btn.classList.add('pulse');
+    }
   }
 });
 
@@ -50,28 +81,6 @@ if (stickyBtn) {
     stickyBtn.classList.toggle('visible', window.scrollY > heroH * 0.6);
   }, { passive: true });
 }
-
-/* ── ПЛАВНЫЙ ПАРАЛЛАКС НА ГЕРОЕ ── */
-(function initHeroParallax() {
-  const photo = document.querySelector('.hero-photo');
-  if (!photo
-    || window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) return;
-  photo.style.willChange = 'transform';
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const y = window.scrollY;
-        if (y < window.innerHeight * 1.2) {
-          photo.style.transform = `translate3d(0,${y * 0.28}px,0)`;
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
-})();
 
 /* ── COUNTDOWN ── */
 (function initCountdown() {
@@ -110,6 +119,65 @@ if (stickyBtn) {
   setInterval(update, 1000);
 })();
 
+/* ── ROSE: роза распускается по мере прокрутки ── */
+(function initRose() {
+  const section = document.getElementById('rose-bloom');
+  const rose    = document.getElementById('rose');
+  if (!section || !rose) return;
+
+  // кольца лепестков: от внешних (сзади) к внутренним (спереди)
+  const rings = [
+    { count: 9, r: 58, ps: 1.05, c1: '#E0B0B0', c2: '#C68888', c3: '#B07474', offset: 0  },
+    { count: 8, r: 42, ps: 0.86, c1: '#E9BEBE', c2: '#D29696', c3: '#BE8080', offset: 22 },
+    { count: 6, r: 26, ps: 0.66, c1: '#F2D0D0', c2: '#E0AAAA', c3: '#CD9090', offset: 12 },
+    { count: 4, r: 13, ps: 0.48, c1: '#F8DCDC', c2: '#E8B8B8', c3: '#D89E9E', offset: 30 }
+  ];
+
+  rings.forEach(ring => {
+    for (let i = 0; i < ring.count; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      const angle = ring.offset + i * (360 / ring.count);
+      petal.style.setProperty('--a', angle + 'deg');
+      petal.style.setProperty('--r', ring.r);
+      petal.style.setProperty('--ps', ring.ps);
+      petal.style.setProperty('--c1', ring.c1);
+      petal.style.setProperty('--c2', ring.c2);
+      petal.style.setProperty('--c3', ring.c3);
+      rose.appendChild(petal);
+    }
+  });
+
+  const core = document.createElement('div');
+  core.className = 'rose-core';
+  rose.appendChild(core);
+
+  // раскрытие привязано к скроллу, но с небольшой задержкой в начале:
+  // роза сперва появляется, и только потом начинает распускаться
+  const START = 0.20;   // до этого момента бутон закрыт (задержка)
+  const END   = 0.52;   // полностью раскрыт примерно в центре экрана
+
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const rect = section.getBoundingClientRect();
+    const vh = window.innerHeight;
+
+    // raw: 0 — секция только показалась снизу, 1 — ушла за верх
+    const raw = (vh - rect.top) / (vh + rect.height);
+    let bloom = (raw - START) / (END - START);
+    bloom = Math.max(0, Math.min(1, bloom));
+
+    rose.style.setProperty('--bloom', bloom.toFixed(3));
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+
 /* ── MUSIC TOGGLE ── */
 (function initMusic() {
   const btn  = document.getElementById('musicToggle');
@@ -117,11 +185,12 @@ if (stickyBtn) {
   if (!btn || !audio) return;
 
   btn.addEventListener('click', () => {
+    btn.classList.remove('pulse');
     if (!audio.paused) {
       audio.pause();
       btn.style.opacity = '0.4';
     } else {
-      audio.volume = 0.3;
+      audio.volume = MUSIC_VOLUME;
       audio.play().catch(() => {});
       btn.style.opacity = '1';
     }
