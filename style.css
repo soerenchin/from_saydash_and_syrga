@@ -310,16 +310,9 @@ section {
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center top;
-  filter: brightness(0.62) saturate(0.6);
 }
 .hero-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.1) 0%,
-    rgba(0,0,0,0.25) 60%,
-    rgba(0,0,0,0.55) 100%
-  );
+  display: none;
 }
 
 .hero-content {
@@ -990,7 +983,7 @@ section {
 }
 
 @media (max-width: 480px) {
-  .hero-names { font-size: 7rem; }
+  .hero-names { font-size: 1.6rem; }
   .section-heading { font-size: 1.6rem; letter-spacing: 0.08em; }
   .section-heading-white { font-size: 1.6rem; letter-spacing: 0.08em; }
   .calendar-wrap { padding: 20px 16px 24px; }
