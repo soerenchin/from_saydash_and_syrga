@@ -119,43 +119,71 @@ if (stickyBtn) {
   setInterval(update, 1000);
 })();
 
-/* ── ROSE: роза распускается по мере прокрутки ── */
+/* ── ROSE: букет роз раскрывается по мере прокрутки ── */
 (function initRose() {
   const section = document.getElementById('rose-bloom');
-  const rose    = document.getElementById('rose');
-  if (!section || !rose) return;
+  const scene   = document.getElementById('rose-scene');
+  if (!section || !scene) return;
 
   // кольца лепестков: от внешних (сзади) к внутренним (спереди)
   const rings = [
-    { count: 9, r: 58, ps: 1.05, c1: '#E0B0B0', c2: '#C68888', c3: '#B07474', offset: 0  },
-    { count: 8, r: 42, ps: 0.86, c1: '#E9BEBE', c2: '#D29696', c3: '#BE8080', offset: 22 },
-    { count: 6, r: 26, ps: 0.66, c1: '#F2D0D0', c2: '#E0AAAA', c3: '#CD9090', offset: 12 },
-    { count: 4, r: 13, ps: 0.48, c1: '#F8DCDC', c2: '#E8B8B8', c3: '#D89E9E', offset: 30 }
+    { count: 9, r: 58, ps: 1.05, c1: '#FFFFFF', c2: '#EFEDE9', c3: '#DEDAD3', offset: 0  },
+    { count: 8, r: 42, ps: 0.86, c1: '#FFFFFF', c2: '#F3F1ED', c3: '#E5E1DA', offset: 22 },
+    { count: 6, r: 26, ps: 0.66, c1: '#FFFFFF', c2: '#F7F5F1', c3: '#EBE7E0', offset: 12 },
+    { count: 4, r: 13, ps: 0.48, c1: '#FFFFFF', c2: '#FBF9F6', c3: '#F1EDE6', offset: 30 }
   ];
 
-  rings.forEach(ring => {
-    for (let i = 0; i < ring.count; i++) {
-      const petal = document.createElement('div');
-      petal.className = 'petal';
-      const angle = ring.offset + i * (360 / ring.count);
-      petal.style.setProperty('--a', angle + 'deg');
-      petal.style.setProperty('--r', ring.r);
-      petal.style.setProperty('--ps', ring.ps);
-      petal.style.setProperty('--c1', ring.c1);
-      petal.style.setProperty('--c2', ring.c2);
-      petal.style.setProperty('--c3', ring.c3);
-      rose.appendChild(petal);
-    }
-  });
+  // строим одну розу (стебель, листья, лепестки, серединку) внутри сцены
+  function buildRose(cfg) {
+    const rose = document.createElement('div');
+    rose.className = 'rose';
+    rose.style.setProperty('--scale', cfg.scale);
+    rose.style.setProperty('--x', cfg.x + 'px');
+    rose.style.setProperty('--y', cfg.y + 'px');
 
-  const core = document.createElement('div');
-  core.className = 'rose-core';
-  rose.appendChild(core);
+    const stem = document.createElement('div');
+    stem.className = 'rose-stem';
+    rose.appendChild(stem);
 
-  // раскрытие привязано к скроллу, но с небольшой задержкой в начале:
-  // роза сперва появляется, и только потом начинает распускаться
-  const START = 0.20;   // до этого момента бутон закрыт (задержка)
-  const END   = 0.52;   // полностью раскрыт примерно в центре экрана
+    const leafL = document.createElement('span');
+    leafL.className = 'rose-leaf left';
+    const leafR = document.createElement('span');
+    leafR.className = 'rose-leaf right';
+    rose.appendChild(leafL);
+    rose.appendChild(leafR);
+
+    rings.forEach(ring => {
+      for (let i = 0; i < ring.count; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        const angle = ring.offset + i * (360 / ring.count);
+        petal.style.setProperty('--a', angle + 'deg');
+        petal.style.setProperty('--r', ring.r);
+        petal.style.setProperty('--ps', ring.ps);
+        petal.style.setProperty('--c1', ring.c1);
+        petal.style.setProperty('--c2', ring.c2);
+        petal.style.setProperty('--c3', ring.c3);
+        rose.appendChild(petal);
+      }
+    });
+
+    const core = document.createElement('div');
+    core.className = 'rose-core';
+    rose.appendChild(core);
+
+    scene.appendChild(rose);
+    return rose;
+  }
+
+  // одна роза по центру, распускается при скролле
+  const roses = [
+    { scale: 0.88, x: 0, y: 0, d: 0.00 }
+  ].map(cfg => ({ cfg, el: buildRose(cfg) }));
+
+  // раскрытие привязано к скроллу, с небольшой задержкой в начале
+  const START = 0.16;   // до этого момента бутоны закрыты
+  const END   = 0.60;   // букет полностью раскрыт около центра экрана
+  const SPAN  = 0.34;   // длительность раскрытия отдельной розы
 
   let ticking = false;
   function update() {
@@ -165,10 +193,14 @@ if (stickyBtn) {
 
     // raw: 0 — секция только показалась снизу, 1 — ушла за верх
     const raw = (vh - rect.top) / (vh + rect.height);
-    let bloom = (raw - START) / (END - START);
-    bloom = Math.max(0, Math.min(1, bloom));
+    const t = (raw - START) / (END - START);   // общий прогресс 0..1
 
-    rose.style.setProperty('--bloom', bloom.toFixed(3));
+    roses.forEach(({ cfg, el }) => {
+      // каждая роза стартует со своей задержкой d и раскрывается за SPAN
+      let bloom = (t - cfg.d) / SPAN;
+      bloom = Math.max(0, Math.min(1, bloom));
+      el.style.setProperty('--bloom', bloom.toFixed(3));
+    });
   }
 
   window.addEventListener('scroll', () => {
@@ -200,25 +232,23 @@ if (stickyBtn) {
 /* ── RSVP FORM ── */
 (function initRSVP() {
 
-  // Show/hide +1 field
-  const guestCountSel = document.getElementById('guestCount');
-  const plusOneGroup  = document.getElementById('plusOneGroup');
-  if (guestCountSel && plusOneGroup) {
-    guestCountSel.addEventListener('change', () => {
-      plusOneGroup.style.display = parseInt(guestCountSel.value) >= 2 ? '' : 'none';
-    });
-  }
-
   // Validate
   function validate(form) {
     let ok = true;
-    form.querySelectorAll('[required]').forEach(el => {
-      const empty = el.tagName === 'INPUT' && el.type === 'radio'
-        ? !form.querySelector(`[name="${el.name}"]:checked`)
-        : !el.value.trim();
-      el.classList.toggle('error', empty);
-      if (empty) ok = false;
+
+    // имя
+    const name = form.guestName;
+    const nameEmpty = !name.value.trim();
+    name.classList.toggle('error', nameEmpty);
+    if (nameEmpty) ok = false;
+
+    // выбор присутствия
+    const attendChecked = form.querySelector('[name="attending"]:checked');
+    if (!attendChecked) ok = false;
+    form.querySelectorAll('.attend-option').forEach(opt => {
+      opt.classList.toggle('error', !attendChecked);
     });
+
     return ok;
   }
 
@@ -234,11 +264,9 @@ if (stickyBtn) {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        'Имя и фамилия':     data.name,
-        'Кем приходится':    data.relation,
-        'Количество гостей': data.count,
-        'Имя +1 гостя':      data.plusOne || '—',
-        _subject:            `Подтверждение участия — ${data.name}`,
+        'Фамилия и имя':  data.name,
+        'Присутствие':    data.attending,
+        _subject:         `Подтверждение участия — ${data.name}`,
       }),
     });
 
@@ -263,16 +291,9 @@ if (stickyBtn) {
       if (btnLoad) btnLoad.style.display = '';
       if (submitBtn) submitBtn.disabled = true;
 
-      const attending = form.querySelector('[name="attending"]:checked')?.value || 'yes';
-      const name      = form.guestName.value.trim();
-
       const data = {
-        name,
-        relation:  form.relation.value,
-        attending,
-        count:     form.guestCount?.value || '1',
-        plusOne:   form.plusOneName?.value.trim() || '',
-        wishes:    form.wishes?.value?.trim() || '',
+        name:      form.guestName.value.trim(),
+        attending: form.querySelector('[name="attending"]:checked')?.value || '',
       };
 
       try {
