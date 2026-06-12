@@ -81,19 +81,13 @@
 
 <!-- ░░ ROSE BLOOM ░░ -->
 <section id="rose-bloom">
-  <div class="rose-scene">
-    <div class="rose" id="rose">
-      <div class="rose-stem"></div>
-      <span class="rose-leaf left"></span>
-      <span class="rose-leaf right"></span>
-      <!-- лепестки и серединка генерируются в app.js -->
-    </div>
+  <div class="rose-scene" id="rose-scene">
+    <!-- розы и бутоны генерируются в app.js -->
   </div>
 </section>
 
 <!-- ░░ WELCOME ░░ -->
 <section id="welcome" class="section-white">
-  <div class="wm-text">Wedding</div>
   <div class="container narrow reveal">
     <h2 class="section-heading">ДОРОГИЕ РОДНЫЕ<br>И ДРУЗЬЯ</h2>
     <p class="welcome-text">
@@ -113,7 +107,7 @@
 <!-- ░░ CALENDAR ░░ -->
 <section id="calendar" class="section-white">
   <div class="container narrow reveal">
-    <h2 class="section-heading">ПРИГЛАШАЕМ<br>ВАС НА СВАДЬБУ</h2>
+    <h2 class="section-heading">ПРИГЛАШАЕМ ВАС<br>НА НАШУ СВАДЬБУ</h2>
     <div class="calendar-wrap">
       <div class="calendar-header">
         <span class="cal-month">Август</span>
@@ -151,13 +145,38 @@
   </div>
 </section>
 
+<!-- ░░ COUNTDOWN ░░ -->
+<section id="countdown-section" class="section-white countdown-compact">
+  <div class="container narrow reveal">
+    <h2 class="section-heading">ДО СВАДЬБЫ ОСТАЛОСЬ</h2>
+    <div class="countdown-grid">
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cDays">00</span>
+        <span class="countdown-label">дней</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cHours">00</span>
+        <span class="countdown-label">часов</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cMins">00</span>
+        <span class="countdown-label">минут</span>
+      </div>
+      <div class="countdown-unit">
+        <span class="countdown-num" id="cSecs">00</span>
+        <span class="countdown-label">секунд</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ░░ TIMELINE ░░ -->
 <section id="program" class="section-white section-floral">
   <div class="floral-layer">
     <img src="average.webp" alt="" loading="lazy" />
   </div>
   <div class="container narrow reveal">
-    <h2 class="section-heading">ТАЙМИНГ</h2>
+    <h2 class="section-heading">ПЛАН МЕРОПРИЯТИЯ</h2>
     <ul class="timeline-list">
 
       <li class="timeline-item reveal-stagger">
@@ -248,8 +267,15 @@
     <p class="location-addr">г. Кызыл, ул. Каа-Хем 110<br>Ресторан «Аристократ»</p>
     <div class="location-details-centered">
       <a href="https://yandex.ru/maps/org/aristokrat/79589704741/?ll=94.456810%2C51.702763&z=17"
-         target="_blank" rel="noopener" class="route-btn">Построить маршрут →</a>
+         target="_blank" rel="noopener" class="route-btn">Показать на карте →</a>
     </div>
+  </div>
+</section>
+
+<!-- ░░ PHOTO (после Локации) ░░ -->
+<section class="photo-section reveal">
+  <div class="photo-frame">
+    <img src="1.webp" alt="Сайдаш и Сырга" loading="lazy" />
   </div>
 </section>
 
@@ -267,48 +293,65 @@
   </div>
 </section>
 
+<!-- ░░ DETAILS ░░ -->
+<section id="details" class="section-white reveal">
+  <div class="container narrow">
+    <h2 class="section-heading">ДЕТАЛИ</h2>
+    <div class="details-grid">
+      <div class="details-item reveal-stagger">
+        <h3 class="details-title">/Подарки</h3>
+        <p class="details-text">Мы не хотим обременять вас выбором подарка, поэтому будем рады вкладу в бюджет нашей молодой семьи.</p>
+      </div>
+      <div class="details-item reveal-stagger">
+        <h3 class="details-title">/Маленькие гости</h3>
+        <p class="details-text">Свадебное торжество предполагает участие только взрослых. Пожалуйста, позаботьтесь о том, чтобы провести этот вечер без детей.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░ PHOTO (после Деталей) ░░ -->
+<section class="photo-section reveal">
+  <div class="photo-frame">
+    <img src="2.webp" alt="Сайдаш и Сырга" loading="lazy" />
+  </div>
+</section>
+
 <!-- ░░ RSVP FORM ░░ -->
 <section id="rsvp" class="section-white reveal">
   <div class="container narrow">
-    <h2 class="section-heading">АНКЕТА</h2>
-    <p class="section-sub">Будем благодарны, если вы подтвердите своё присутствие до <strong>1 июля 2026</strong></p>
+    <h2 class="section-heading">ВАШЕ ПРИСУТСТВИЕ</h2>
 
     <form id="rsvpForm" class="rsvp-form" novalidate>
 
       <div class="form-group">
-        <label for="guestName">Ваше имя и фамилия</label>
-        <input type="text" id="guestName" name="guestName" placeholder="Аяна Монгуш" required autocomplete="name" />
+        <label for="guestName">Фамилия и имя</label>
+        <input type="text" id="guestName" name="guestName" placeholder="Антон Иванов, Анна Иванова" required autocomplete="name" />
       </div>
 
       <div class="form-group">
-        <label for="relation">Кем приходитесь</label>
-        <select id="relation" name="relation" required>
-          <option value="" disabled selected hidden>Выберите…</option>
-          <option value="Родственник со стороны жениха">Родственник со стороны жениха</option>
-          <option value="Родственник со стороны невесты">Родственник со стороны невесты</option>
-          <option value="Друг жениха">Друг жениха</option>
-          <option value="Подруга невесты">Подруга невесты</option>
-          <option value="Общий друг / подруга">Общий друг / подруга</option>
-          <option value="Коллега">Коллега</option>
-          <option value="Другое">Другое</option>
-        </select>
-      </div>
-
-      <div class="form-group" id="guestCountGroup">
-        <label for="guestCount">Количество гостей (включая вас)</label>
-        <select id="guestCount" name="guestCount">
-          <option value="1" selected>1 гость (только я)</option>
-          <option value="2">2 гостя</option>
-        </select>
-      </div>
-
-      <div class="form-group" id="plusOneGroup" style="display:none">
-        <label for="plusOneName">Имя и фамилия +1 гостя</label>
-        <input type="text" id="plusOneName" name="plusOneName" placeholder="Имя вашего спутника(цы)" autocomplete="off" />
+        <label>Планируете ли вы присутствовать на нашей свадьбе?</label>
+        <div class="attend-options">
+          <label class="attend-option">
+            <input type="radio" name="attending" value="Смогу / сможем присутствовать" required />
+            <span class="attend-mark"></span>
+            <span class="attend-text">Смогу / сможем присутствовать</span>
+          </label>
+          <label class="attend-option">
+            <input type="radio" name="attending" value="Затрудняюсь ответить, сообщу позже" />
+            <span class="attend-mark"></span>
+            <span class="attend-text">Затрудняюсь ответить, сообщу позже</span>
+          </label>
+          <label class="attend-option">
+            <input type="radio" name="attending" value="Не смогу прийти" />
+            <span class="attend-mark"></span>
+            <span class="attend-text">Не смогу прийти</span>
+          </label>
+        </div>
       </div>
 
       <button type="submit" class="submit-btn" id="submitBtn">
-        <span class="btn-text">Отправить</span>
+        <span class="btn-text">Отправить!</span>
         <span class="btn-loading" style="display:none">Отправляем…</span>
       </button>
 
@@ -323,43 +366,14 @@
   </div>
 </div>
 
-<!-- ░░ COUNTDOWN ░░ -->
-<section id="countdown-section" class="section-white">
-  <div class="wm-text">Countdown</div>
-  <div class="container narrow reveal">
-    <h2 class="section-heading">ДО СВАДЬБЫ<br>ОСТАЛОСЬ</h2>
-    <div class="countdown-grid">
-      <div class="countdown-unit">
-        <span class="countdown-num" id="cDays">00</span>
-        <span class="countdown-label">дней</span>
-      </div>
-      <div class="countdown-unit">
-        <span class="countdown-num" id="cHours">00</span>
-        <span class="countdown-label">часов</span>
-      </div>
-      <div class="countdown-unit">
-        <span class="countdown-num" id="cMins">00</span>
-        <span class="countdown-label">минут</span>
-      </div>
-      <div class="countdown-unit">
-        <span class="countdown-num" id="cSecs">00</span>
-        <span class="countdown-label">секунд</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ░░ FOOTER ░░ -->
 <footer id="footer">
   <div class="container narrow">
-    <div class="footer-names">Сайдаш & Сырга</div>
-    <div class="footer-date">02 · 08 · 2026</div>
     <div class="footer-line"></div>
     <a href="https://t.me/+dtw6w5zYnxM2MmYy" target="_blank" rel="noopener" class="footer-tg">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.88l-2.96-.924c-.643-.203-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.958.679z"/></svg>
       Группа с новостями
     </a>
-    <p class="footer-love">С любовью ♡</p>
   </div>
 </footer>
 
