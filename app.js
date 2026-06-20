@@ -43,7 +43,7 @@ function openInvitation() {
   if (!envelope) return;
   envelope.classList.add('opened');
   document.body.classList.add('intro-open');   // первая фотография плавно появляется
-  setTimeout(() => { envelope.style.display = 'none'; }, 2400);
+  setTimeout(() => { envelope.style.display = 'none'; }, 3600);
   revealOnScroll();
 
   const audio = document.getElementById('bgMusic');
@@ -123,7 +123,7 @@ if (stickyBtn) {
   setInterval(update, 1000);
 })();
 
-/* ── ЛОТОС: белый лотос распускается по мере прокрутки ── */
+/* ── ЛОТОС удалён ── */
 (function initRose() {
   const section = document.getElementById('rose-bloom');
   const scene   = document.getElementById('rose-scene');
