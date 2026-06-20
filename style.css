@@ -54,7 +54,9 @@ body {
   font-size: 17px;
   line-height: 1.7;
   color: var(--dark);
-  background: var(--white);
+  background-color: var(--white);
+  background-image: url('gold-dust.svg');
+  background-repeat: repeat;
   overflow-x: clip;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: none;
@@ -73,7 +75,7 @@ section {
   overflow: hidden;
 }
 .section-white {
-  background: var(--white);
+  background: transparent;
   padding: 80px 0;
 }
 
@@ -138,11 +140,11 @@ section {
 }
 .envelope-screen.opened { pointer-events: none; }
 
-/* Четыре клапана-конверта (раскрытие по диагональным линиям) */
+/* Две половины конверта: раскрытие вверх и вниз */
 .env-flap {
   position: absolute;
   inset: 0;
-  transition: transform 2.2s cubic-bezier(0.45, 0, 0.18, 1);
+  transition: transform 3.4s cubic-bezier(0.33, 0, 0.15, 1);
   will-change: transform;
 }
 .env-flap .flap-shape {
@@ -152,30 +154,19 @@ section {
 }
 .env-top    { z-index: 4; }
 .env-bottom { z-index: 3; }
-.env-left, .env-right { z-index: 2; }
 
 .env-top .flap-shape {
-  clip-path: polygon(0 0, 100% 0, 50% 50%);
-  background: linear-gradient(178deg, #FFFFFF 0%, #F3F1EB 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+  background: #0b1526 url('start-bg.jpg') center center / cover no-repeat;
 }
 .env-bottom .flap-shape {
-  clip-path: polygon(0 100%, 100% 100%, 50% 50%);
-  background: linear-gradient(2deg, #FFFFFF 0%, #F1EFE8 100%);
-}
-.env-left .flap-shape {
-  clip-path: polygon(0 0, 0 100%, 50% 50%);
-  background: linear-gradient(92deg, #FFFFFF 0%, #F2F0EA 100%);
-}
-.env-right .flap-shape {
-  clip-path: polygon(100% 0, 100% 100%, 50% 50%);
-  background: linear-gradient(268deg, #FFFFFF 0%, #F0EEE7 100%);
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+  background: #0b1526 url('start-bg.jpg') center center / cover no-repeat;
 }
 
-/* Раскрытие: верх (со штампом) — вверх, низ — вниз, бока — в стороны */
+/* Раскрытие: верхняя половина (со штампом) — вверх, нижняя — вниз */
 #envelope.opened .env-top    { transform: translateY(-100%); }
 #envelope.opened .env-bottom { transform: translateY(100%); }
-#envelope.opened .env-left   { transform: translateX(-100%); }
-#envelope.opened .env-right  { transform: translateX(100%); }
 
 /* Заголовок над штампом */
 .envelope-title {
@@ -188,7 +179,8 @@ section {
   font-size: clamp(1.5rem, 5vw, 2.1rem);
   font-weight: 400;
   letter-spacing: 0.18em;
-  color: var(--dark);
+  color: #f3ead4;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.6);
   line-height: 1.4;
 }
 
@@ -223,7 +215,8 @@ section {
   font-weight: 400;
   letter-spacing: 0.15em;
   line-height: 1.7;
-  color: var(--mid);
+  color: rgba(243,234,212,0.92);
+  text-shadow: 0 2px 14px rgba(0,0,0,0.6);
   background: none;
   border: none;
   cursor: pointer;
@@ -231,7 +224,7 @@ section {
   text-transform: lowercase;
   transition: color 0.35s var(--ease);
 }
-.envelope-btn:hover { color: var(--dark); }
+.envelope-btn:hover { color: #ffffff; }
 
 /* ── STICKY RSVP ── */
 .sticky-rsvp {
@@ -491,7 +484,7 @@ body.intro-open .hero-photo { opacity: 1; }
 }
 .welcome-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.15rem, 2.7vw, 1.42rem);
+  font-size: clamp(1.34rem, 3vw, 1.62rem);
   font-weight: 300;
   font-style: italic;
   color: var(--mid);
@@ -529,7 +522,7 @@ body.intro-open .hero-photo { opacity: 1; }
 .invite-frame {
   width: min(720px, calc(100% - 40px));
   margin: 28px auto;
-  background: #FCFBFA;
+  background: transparent;
   border: 1.5px solid #6E7A98;
   border-radius: 24px;
   padding: 20px 0 26px;
@@ -543,6 +536,11 @@ body.intro-open .hero-photo { opacity: 1; }
   background: transparent;
   border: none;
   padding-top: 6px;
+}
+.invite-frame #details,
+.invite-frame #contacts {
+  background: transparent;
+  padding: 36px 0;
 }
 
 #calendar { padding: 20px 0 36px; }
@@ -807,8 +805,36 @@ body.intro-open .hero-photo { opacity: 1; }
 /* ══════════════════════════════════════════
    LOCATION
 ══════════════════════════════════════════ */
-#location { padding: 80px 0; }
-#location .container { position: relative; z-index: 1; }
+.location-photo {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin: 64px auto 0;
+  overflow: hidden;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 24px 50px -14px rgba(0,0,0,0.18);
+}
+.location-photo-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.location-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 44px 24px 90px;
+  text-align: center;
+  background: linear-gradient(to bottom,
+    rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.85) 52%, rgba(255,255,255,0) 100%);
+}
+.location-overlay .section-heading {
+  color: var(--dark);
+  margin-bottom: 16px;
+}
+.location-overlay .location-addr {
+  color: var(--dark);
+  margin-bottom: 0;
+}
 
 .location-addr {
   font-family: 'Cormorant Garamond', serif;
@@ -881,7 +907,7 @@ body.intro-open .hero-photo { opacity: 1; }
 
 .dresscode-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.08rem, 2.6vw, 1.3rem);
+  font-size: clamp(1.26rem, 2.9vw, 1.5rem);
   font-style: italic;
   font-weight: 300;
   color: var(--mid);
@@ -891,16 +917,21 @@ body.intro-open .hero-photo { opacity: 1; }
   margin: 0 auto 40px;
 }
 .dresscode-photo {
-  max-width: 320px;
-  margin: 0 auto;
-  border-radius: 4px;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-top: 48px;
+  border-radius: 0;
   overflow: hidden;
-  aspect-ratio: 2 / 3;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
 }
 .dresscode-photo img {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: auto;
+  max-height: 92vh;
   object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 /* ══════════════════════════════════════════
@@ -927,7 +958,7 @@ body.intro-open .hero-photo { opacity: 1; }
   border-left: 1px solid var(--border);
   padding-left: 16px;
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1rem, 3.6vw, 1.12rem);
+  font-size: clamp(1.16rem, 3.6vw, 1.3rem);
   font-style: italic;
   font-weight: 300;
   line-height: 1.8;
@@ -944,15 +975,19 @@ body.intro-open .hero-photo { opacity: 1; }
 ══════════════════════════════════════════ */
 .photo-section { padding: 0 0 40px; }
 .photo-frame {
-  max-width: 480px;
-  margin: 0 auto;
-  border-radius: 4px;
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
 }
 .photo-frame img {
   width: 100%;
   height: auto;
+  max-height: 92vh;
+  object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -969,14 +1004,24 @@ body.intro-open .hero-photo { opacity: 1; }
   width: 60px; height: 60px;
   border-radius: 50%;
   background: var(--c);
-  border: 3px solid var(--white);
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.08);
+  border: none;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
   cursor: default;
 }
 .swatch:hover {
   transform: translateY(-5px) scale(1.1);
   box-shadow: 0 0 0 1px rgba(0,0,0,0.12), 0 12px 28px rgba(0,0,0,0.14);
+}
+
+/* Палитра дресс-кода: 2 ряда по 3 кружка */
+.swatch-grid-palette {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+  gap: 20px;
+  max-width: 260px;
+  margin: 0 auto 44px;
 }
 
 /* ══════════════════════════════════════════
@@ -1185,7 +1230,7 @@ body.intro-open .hero-photo { opacity: 1; }
 
 .contacts-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.08rem, 2.6vw, 1.3rem);
+  font-size: clamp(1.26rem, 2.9vw, 1.5rem);
   font-style: italic;
   font-weight: 300;
   color: var(--mid);
@@ -1215,15 +1260,80 @@ body.intro-open .hero-photo { opacity: 1; }
   text-decoration-thickness: 1px;
   white-space: nowrap;
 }
+.contacts-coordinators {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.12rem, 2.6vw, 1.3rem);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--mid);
+  text-align: center;
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 32px auto 0;
+}
+
+/* ══════════════════════════════════════════
+   FINISH — заключительное фото
+══════════════════════════════════════════ */
+.finish-photo {
+  position: relative;
+  width: 100%;
+  min-height: 80svh;
+  overflow: hidden;
+}
+.finish-photo-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 58% 50%;
+}
+.finish-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 24px 24px 60px;
+  text-align: center;
+  z-index: 2;
+  background: linear-gradient(to bottom,
+    rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.22) 45%, rgba(0,0,0,0) 100%);
+}
+.finish-title {
+  color: #fff;
+  font-size: clamp(1.3rem, 4vw, 2rem);
+  margin-bottom: 8px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.45);
+}
+.finish-signature {
+  font-family: 'Bickham Script', 'Annabelle', 'Great Vibes', cursive;
+  font-size: clamp(1.7rem, 6vw, 2.5rem);
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.1;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.45);
+}
 
 /* ══════════════════════════════════════════
    FOOTER
 ══════════════════════════════════════════ */
 #footer {
-  background: var(--warm-light);
-  padding: 60px 0 48px;
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 80px 24px 36px;
   text-align: center;
+  z-index: 2;
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%);
 }
+#footer .footer-line {
+  background: rgba(255,255,255,0.5);
+}
+#footer .footer-tg {
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 0;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.5);
+}
+#footer .footer-tg:hover { color: #fff; }
 
 .footer-names {
   font-family: 'Great Vibes', cursive;
@@ -1268,6 +1378,7 @@ body.intro-open .hero-photo { opacity: 1; }
    АДАПТИВНОСТЬ
 ══════════════════════════════════════════ */
 @media (max-width: 768px) {
+  #hero { aspect-ratio: auto; height: 100svh; min-height: 480px; max-height: none; }
   .container { padding: 0 20px; }
   .section-white { padding: 60px 0; }
   #welcome { padding: 24px 0 64px; }

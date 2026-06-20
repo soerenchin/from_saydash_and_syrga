@@ -24,10 +24,7 @@
 
 <!-- ░░ ENVELOPE INTRO ░░ -->
 <div id="envelope" class="envelope-screen">
-  <!-- боковые клапаны -->
-  <div class="env-flap env-left"><span class="flap-shape"></span></div>
-  <div class="env-flap env-right"><span class="flap-shape"></span></div>
-  <!-- нижний клапан (раскрывается вниз) с подписью -->
+  <!-- нижняя половина (раскрывается вниз) с подписью -->
   <div class="env-flap env-bottom">
     <span class="flap-shape"></span>
     <button class="envelope-btn" id="openEnvelope">нажмите,<br>чтобы открыть</button>
@@ -120,13 +117,6 @@
   <svg class="hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M0,48 C180,86 360,86 540,58 C720,30 900,30 1080,54 C1230,74 1350,72 1440,52 L1440,90 L0,90 Z" fill="#FFFFFF"/>
   </svg>
-</section>
-
-<!-- ░░ ROSE BLOOM ░░ -->
-<section id="rose-bloom">
-  <div class="rose-scene" id="rose-scene">
-    <!-- розы и бутоны генерируются в app.js -->
-  </div>
 </section>
 
 <!-- ░░ WELCOME ░░ -->
@@ -254,16 +244,17 @@
         <div class="tl-marker"></div>
         <div class="tl-body">
           <div class="tl-icon">
-            <!-- Pair of women's high heels -->
+            <!-- Bouquet of roses -->
             <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-              <g transform="translate(8,-2)">
-                <path d="M4 24 Q8 19 13 18 Q23 16 33 14 Q36 15 35 20 Q34 24 32 24 Z"/>
-                <path d="M32 24 L35 35 L33 35 L30 24"/>
-              </g>
-              <g transform="translate(0,9)">
-                <path d="M4 24 Q8 19 13 18 Q23 16 33 14 Q36 15 35 20 Q34 24 32 24 Z"/>
-                <path d="M32 24 L35 35 L33 35 L30 24"/>
-              </g>
+              <circle cx="16" cy="14" r="5"/>
+              <path d="M16 11 Q18 12 17.5 14.5 M13.6 13 Q16 13.6 16.6 16 M16 11 Q14 12 14.5 14.5"/>
+              <circle cx="27" cy="11" r="5"/>
+              <path d="M27 8 Q29 9 28.5 11.5 M24.6 10 Q27 10.6 27.6 13 M27 8 Q25 9 25.5 11.5"/>
+              <circle cx="33" cy="18" r="5"/>
+              <path d="M33 15 Q35 16 34.5 18.5 M30.6 17 Q33 17.6 33.6 20 M33 15 Q31 16 31.5 18.5"/>
+              <path d="M17 19 L23 38 M27 16 L24 38 M32 23 L26 38"/>
+              <path d="M18 44 L24 38 L31 44"/>
+              <path d="M21 30 Q16 29 14 26 M28 28 Q34 28 36 25"/>
             </svg>
           </div>
           <div class="tl-text">
@@ -336,22 +327,14 @@
   </div>
 </section>
 
-<!-- ░░ LOCATION ░░ -->
-<section id="location" class="section-white reveal">
-  <div class="container narrow">
+<!-- ░░ LOCATION (поверх фотографии) ░░ -->
+<section id="location" class="location-photo reveal">
+  <img src="dsc1099.webp" alt="Сайдаш и Сырга" class="location-photo-img" loading="lazy" />
+  <div class="location-overlay">
     <h2 class="section-heading">ЖДЁМ ВАС<br>ПО АДРЕСУ</h2>
     <p class="location-addr">г. Кызыл, ул. Каа-Хем 110<br>Ресторан «Аристократ»</p>
-    <div class="location-details-centered">
-      <a href="https://yandex.ru/maps/org/aristokrat/79589704741/?ll=94.456810%2C51.702763&z=17"
-         target="_blank" rel="noopener" class="route-btn">Показать на карте →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ░░ PHOTO (после Локации) ░░ -->
-<section class="photo-section reveal">
-  <div class="photo-frame">
-    <img src="1.webp" alt="Сайдаш и Сырга" loading="lazy" />
+    <a href="https://yandex.ru/maps/org/aristokrat/79589704741/?ll=94.456810%2C51.702763&z=17"
+       target="_blank" rel="noopener" class="route-btn">Показать на карте →</a>
   </div>
 </section>
 
@@ -361,15 +344,25 @@
   <div class="container narrow">
     <h2 class="section-heading">ДРЕСС-КОД</h2>
     <p class="dresscode-text">
-      Торжество не подразумевает конкретного дресс-кода, но мы будем рады видеть мужчин в классическом, дам в вечерних нарядах.
+      Для нас главное — ваше присутствие, но мы будем рады,<br>
+      если вы придержитесь дресс-кода свадьбы.
     </p>
+    <div class="swatch-grid swatch-grid-palette reveal">
+      <span class="swatch" style="--c:#EDE7D7"></span>
+      <span class="swatch" style="--c:linear-gradient(135deg,#C9A24B 0%,#F6E3A1 45%,#B8862F 100%)"></span>
+      <span class="swatch" style="--c:linear-gradient(135deg,#9BA0A4 0%,#F0F1F2 45%,#8A9094 100%)"></span>
+      <span class="swatch" style="--c:#9FB0A4"></span>
+      <span class="swatch" style="--c:#B9CDE0"></span>
+      <span class="swatch" style="--c:#6E93B8"></span>
+    </div>
     <div class="dresscode-photo">
-      <img src="dress.webp" alt="Сайдаш и Сырга" loading="lazy" />
+      <img src="dsc1585.webp" alt="Сайдаш и Сырга" loading="lazy" />
     </div>
   </div>
 </section>
 
 <!-- ░░ DETAILS ░░ -->
+<div class="invite-frame">
 <section id="details" class="section-white reveal">
   <div class="container narrow">
     <h2 class="section-heading">ДЕТАЛИ</h2>
@@ -385,11 +378,12 @@
     </div>
   </div>
 </section>
+</div><!-- /.invite-frame -->
 
 <!-- ░░ PHOTO (после Деталей) ░░ -->
 <section class="photo-section reveal">
   <div class="photo-frame">
-    <img src="2.webp" alt="Сайдаш и Сырга" loading="lazy" />
+    <img src="dsc1747.webp" alt="Сайдаш и Сырга" loading="lazy" />
   </div>
 </section>
 
@@ -443,6 +437,7 @@
 </div>
 
 <!-- ░░ CONTACTS ░░ -->
+<div class="invite-frame">
 <section id="contacts" class="section-white reveal">
   <div class="container narrow">
     <h2 class="section-heading">КОНТАКТЫ</h2>
@@ -453,19 +448,29 @@
       <p class="contact-person">Сайдаш <a href="tel:+79771995267" class="contact-phone">+7 (977) 199 52 67</a></p>
       <p class="contact-person">Сырга <a href="tel:+79999663454" class="contact-phone">+7 (999) 966 34 54</a></p>
     </div>
+    <p class="contacts-coordinators">
+      В день свадьбы о ваших вопросах позаботятся координаторы:<br>
+      <a href="tel:+79969381305" class="contact-phone">+7 (996) 938 13 05</a>
+    </p>
   </div>
 </section>
+</div><!-- /.invite-frame -->
 
-<!-- ░░ FOOTER ░░ -->
-<footer id="footer">
-  <div class="container narrow">
+<!-- ░░ FINISH ░░ -->
+<section class="finish-photo reveal">
+  <img src="finish.webp" alt="Сайдаш и Сырга" class="finish-photo-img" loading="lazy" />
+  <div class="finish-overlay">
+    <h2 class="section-heading finish-title">С НЕТЕРПЕНИЕМ<br>ЖДЁМ ВСТРЕЧИ!</h2>
+    <p class="finish-signature">Ваши Сайдаш и Сырга</p>
+  </div>
+  <footer id="footer" class="finish-footer">
     <div class="footer-line"></div>
     <a href="https://t.me/+dtw6w5zYnxM2MmYy" target="_blank" rel="noopener" class="footer-tg">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.19 13.88l-2.96-.924c-.643-.203-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.958.679z"/></svg>
       Группа с новостями
     </a>
-  </div>
-</footer>
+  </footer>
+</section>
 
 <script src="app.js"></script>
 </body>
