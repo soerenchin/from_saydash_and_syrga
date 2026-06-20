@@ -35,11 +35,15 @@ function playMusicWithFade(audio) {
 }
 
 /* ── ENVELOPE INTRO ── */
-document.getElementById('openEnvelope')?.addEventListener('click', () => {
+// клик в любом месте стартового экрана раскрывает конверт
+document.getElementById('envelope')?.addEventListener('click', openInvitation, { once: true });
+
+function openInvitation() {
   const envelope = document.getElementById('envelope');
   if (!envelope) return;
   envelope.classList.add('opened');
-  setTimeout(() => { envelope.style.display = 'none'; }, 1300);
+  document.body.classList.add('intro-open');   // первая фотография плавно появляется
+  setTimeout(() => { envelope.style.display = 'none'; }, 2400);
   revealOnScroll();
 
   const audio = document.getElementById('bgMusic');
@@ -51,7 +55,7 @@ document.getElementById('openEnvelope')?.addEventListener('click', () => {
       btn.classList.add('pulse');
     }
   }
-});
+}
 
 /* ── INTERSECTION OBSERVER: REVEAL ── */
 function revealOnScroll() {
@@ -119,21 +123,33 @@ if (stickyBtn) {
   setInterval(update, 1000);
 })();
 
-/* ── ROSE: букет роз раскрывается по мере прокрутки ── */
+/* ── ЛОТОС: белый лотос распускается по мере прокрутки ── */
 (function initRose() {
   const section = document.getElementById('rose-bloom');
   const scene   = document.getElementById('rose-scene');
   if (!section || !scene) return;
 
-  // кольца лепестков: от внешних (сзади) к внутренним (спереди)
-  const rings = [
-    { count: 9, r: 58, ps: 1.05, c1: '#FFFFFF', c2: '#EFEDE9', c3: '#DEDAD3', offset: 0  },
-    { count: 8, r: 42, ps: 0.86, c1: '#FFFFFF', c2: '#F3F1ED', c3: '#E5E1DA', offset: 22 },
-    { count: 6, r: 26, ps: 0.66, c1: '#FFFFFF', c2: '#F7F5F1', c3: '#EBE7E0', offset: 12 },
-    { count: 4, r: 13, ps: 0.48, c1: '#FFFFFF', c2: '#FBF9F6', c3: '#F1EDE6', offset: 30 }
+  // ВИД СБОКУ: лепестки веером раскрываются от основания.
+  // [уголРаскрытия°, ширина, высота, z-слой, тон] — пары лево/право симметричны.
+  const petals = [
+    [-96, 64, 128, 1, 'b'], [ 96, 64, 128, 1, 'b'],   // внешний ряд (сзади)
+    [-72, 62, 138, 1, 'b'], [ 72, 62, 138, 1, 'b'],
+    [-48, 60, 144, 1, 'b'], [ 48, 60, 144, 1, 'b'],
+    [  0, 60, 148, 1, 'b'],                            // задний центральный
+    [-60, 58, 134, 2, 'm'], [ 60, 58, 134, 2, 'm'],   // средний ряд
+    [-34, 56, 144, 2, 'm'], [ 34, 56, 144, 2, 'm'],
+    [-14, 54, 150, 2, 'm'], [ 14, 54, 150, 2, 'm'],
+    [-40, 44, 100, 3, 'f'], [ 40, 44, 100, 3, 'f'],   // внутренняя чаша
+    [-18, 48, 126, 3, 'f'], [ 18, 48, 126, 3, 'f'],
+    [  0, 46, 140, 4, 'f']                             // передний центральный
   ];
+  const tiers = {
+    b: { c1: '#ECE6DC', c2: '#E2DBCF', c3: '#D2CAB8', tip: 'rgba(225,222,196,0)'    },
+    m: { c1: '#F8F4EC', c2: '#EFE9DE', c3: '#E0D8C9', tip: 'rgba(240,234,205,0.40)' },
+    f: { c1: '#FFFFFF', c2: '#FAF6EF', c3: '#EFE7D8', tip: 'rgba(247,240,214,0.50)' }
+  };
 
-  // строим одну розу (стебель, листья, лепестки, серединку) внутри сцены
+  // строим один лотос (вид сбоку) внутри сцены — без стебля
   function buildRose(cfg) {
     const rose = document.createElement('div');
     rose.className = 'rose';
@@ -141,35 +157,28 @@ if (stickyBtn) {
     rose.style.setProperty('--x', cfg.x + 'px');
     rose.style.setProperty('--y', cfg.y + 'px');
 
-    const stem = document.createElement('div');
-    stem.className = 'rose-stem';
-    rose.appendChild(stem);
+    const base = document.createElement('div');
+    base.className = 'lotus-base';
+    rose.appendChild(base);
 
-    const leafL = document.createElement('span');
-    leafL.className = 'rose-leaf left';
-    const leafR = document.createElement('span');
-    leafR.className = 'rose-leaf right';
-    rose.appendChild(leafL);
-    rose.appendChild(leafR);
+    const throat = document.createElement('div');
+    throat.className = 'lotus-throat';
+    rose.appendChild(throat);
 
-    rings.forEach(ring => {
-      for (let i = 0; i < ring.count; i++) {
-        const petal = document.createElement('div');
-        petal.className = 'petal';
-        const angle = ring.offset + i * (360 / ring.count);
-        petal.style.setProperty('--a', angle + 'deg');
-        petal.style.setProperty('--r', ring.r);
-        petal.style.setProperty('--ps', ring.ps);
-        petal.style.setProperty('--c1', ring.c1);
-        petal.style.setProperty('--c2', ring.c2);
-        petal.style.setProperty('--c3', ring.c3);
-        rose.appendChild(petal);
-      }
+    petals.forEach(([open, w, h, z, t]) => {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      const tier = tiers[t];
+      petal.style.setProperty('--open', open + 'deg');
+      petal.style.setProperty('--w', w);
+      petal.style.setProperty('--h', h);
+      petal.style.setProperty('--z', z);
+      petal.style.setProperty('--c1', tier.c1);
+      petal.style.setProperty('--c2', tier.c2);
+      petal.style.setProperty('--c3', tier.c3);
+      petal.style.setProperty('--tip', tier.tip);
+      rose.appendChild(petal);
     });
-
-    const core = document.createElement('div');
-    core.className = 'rose-core';
-    rose.appendChild(core);
 
     scene.appendChild(rose);
     return rose;

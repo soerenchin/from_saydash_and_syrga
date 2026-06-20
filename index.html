@@ -24,25 +24,63 @@
 
 <!-- ░░ ENVELOPE INTRO ░░ -->
 <div id="envelope" class="envelope-screen">
-  <div class="envelope-card">
+  <!-- боковые клапаны -->
+  <div class="env-flap env-left"><span class="flap-shape"></span></div>
+  <div class="env-flap env-right"><span class="flap-shape"></span></div>
+  <!-- нижний клапан (раскрывается вниз) с подписью -->
+  <div class="env-flap env-bottom">
+    <span class="flap-shape"></span>
+    <button class="envelope-btn" id="openEnvelope">нажмите,<br>чтобы открыть</button>
+  </div>
+  <!-- верхний клапан (раскрывается вверх) с заголовком и штампом -->
+  <div class="env-flap env-top">
+    <span class="flap-shape"></span>
     <p class="envelope-title">ПРИГЛАШЕНИЕ<br>НА СВАДЬБУ</p>
-    <div class="envelope-body">
-      <div class="envelope-fold">
-        <div class="ef-top"></div>
-        <div class="ef-bottom"></div>
-        <div class="ef-left"></div>
-        <div class="ef-right"></div>
-        <div class="wax-seal">
-          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="40" cy="40" r="37" stroke="#C0BBB2" stroke-width="1"/>
-            <circle cx="40" cy="40" r="30" stroke="#C0BBB2" stroke-width="0.6" stroke-dasharray="2 3"/>
-            <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
-                  font-family="Great Vibes, cursive" font-size="30" fill="#8C8780">С</text>
-          </svg>
-        </div>
-      </div>
+    <div class="wax-seal">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="seal3d" x="-15%" y="-15%" width="130%" height="130%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.7" result="blur"/>
+            <feSpecularLighting in="blur" surfaceScale="2.4" specularConstant="0.85"
+                                specularExponent="14" lighting-color="#fffaf0" result="spec">
+              <feDistantLight azimuth="230" elevation="58"/>
+            </feSpecularLighting>
+            <feComposite in="spec" in2="SourceAlpha" operator="in" result="specClip"/>
+            <feOffset in="SourceAlpha" dx="0.5" dy="0.8" result="off"/>
+            <feGaussianBlur in="off" stdDeviation="0.5" result="offb"/>
+            <feFlood flood-color="#7a6f58" flood-opacity="0.55" result="shcol"/>
+            <feComposite in="shcol" in2="offb" operator="in" result="shadow"/>
+            <feMerge>
+              <feMergeNode in="shadow"/>
+              <feMergeNode in="SourceGraphic"/>
+              <feMergeNode in="specClip"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <g filter="url(#seal3d)" fill="#D7D0BF" stroke="#D7D0BF" stroke-linejoin="round" stroke-linecap="round">
+          <circle cx="50" cy="50" r="38" fill="none" stroke-width="1.4"/>
+          <circle cx="50" cy="50" r="33" fill="none" stroke-width="0.8" stroke-dasharray="1.4 2.6"/>
+          <path d="M41.5 31 L41.5 26.5 L45.5 29.2 L50 23 L54.5 29.2 L58.5 26.5 L58.5 31 Z"/>
+          <circle cx="41.5" cy="25.2" r="1.2"/><circle cx="50" cy="21.4" r="1.3"/><circle cx="58.5" cy="25.2" r="1.2"/>
+          <path d="M50 78 C41 75 34 67 32 56 C31 50 32 45 34 41" fill="none" stroke-width="1.4"/>
+          <path d="M50 78 C59 75 66 67 68 56 C69 50 68 45 66 41" fill="none" stroke-width="1.4"/>
+          <g stroke="none">
+            <ellipse cx="33" cy="44" rx="3.2" ry="1.5" transform="rotate(-32 33 44)"/>
+            <ellipse cx="31.6" cy="50" rx="3.4" ry="1.6" transform="rotate(-18 31.6 50)"/>
+            <ellipse cx="32" cy="56" rx="3.4" ry="1.6" transform="rotate(-4 32 56)"/>
+            <ellipse cx="34" cy="62" rx="3.3" ry="1.6" transform="rotate(12 34 62)"/>
+            <ellipse cx="38" cy="68" rx="3.1" ry="1.5" transform="rotate(28 38 68)"/>
+            <ellipse cx="67" cy="44" rx="3.2" ry="1.5" transform="rotate(32 67 44)"/>
+            <ellipse cx="68.4" cy="50" rx="3.4" ry="1.6" transform="rotate(18 68.4 50)"/>
+            <ellipse cx="68" cy="56" rx="3.4" ry="1.6" transform="rotate(4 68 56)"/>
+            <ellipse cx="66" cy="62" rx="3.3" ry="1.6" transform="rotate(-12 66 62)"/>
+            <ellipse cx="62" cy="68" rx="3.1" ry="1.5" transform="rotate(-28 62 68)"/>
+          </g>
+          <text x="50" y="58" text-anchor="middle" dominant-baseline="middle"
+                font-family="Great Vibes, cursive" font-size="30" stroke="none">SS</text>
+        </g>
+      </svg>
     </div>
-    <button class="envelope-btn" id="openEnvelope">нажмите, чтобы открыть</button>
   </div>
 </div>
 
@@ -68,7 +106,10 @@
     <div class="hero-overlay"></div>
   </div>
   <div class="hero-content reveal">
-    <h1 class="hero-names">Сайдаш <span class="hero-amp">&amp;</span> Сырга</h1>
+    <h1 class="hero-names">
+      <span class="hero-name name-1">Сайдаш</span>
+      <span class="hero-name name-2">Сырга</span>
+    </h1>
     <div class="hero-divider-line"></div>
   </div>
   <div class="hero-scroll-hint">
@@ -76,7 +117,9 @@
       <polyline points="6 9 12 15 18 9"/>
     </svg>
   </div>
-  <div class="torn-bottom"></div>
+  <svg class="hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M0,48 C180,86 360,86 540,58 C720,30 900,30 1080,54 C1230,74 1350,72 1440,52 L1440,90 L0,90 Z" fill="#FFFFFF"/>
+  </svg>
 </section>
 
 <!-- ░░ ROSE BLOOM ░░ -->
@@ -104,6 +147,8 @@
   </div>
 </section>
 
+<!-- ░░ CALENDAR + COUNTDOWN (в общей рамке) ░░ -->
+<div class="invite-frame">
 <!-- ░░ CALENDAR ░░ -->
 <section id="calendar" class="section-white">
   <div class="container narrow reveal">
@@ -169,6 +214,7 @@
     </div>
   </div>
 </section>
+</div><!-- /.invite-frame -->
 
 <!-- ░░ TIMELINE ░░ -->
 <section id="program" class="section-white section-floral">
@@ -180,80 +226,110 @@
     <ul class="timeline-list">
 
       <li class="timeline-item reveal-stagger">
-        <div class="tl-icon">
-          <!-- Sun / morning -->
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
-            <circle cx="24" cy="24" r="7"/>
-            <line x1="24" y1="5" x2="24" y2="11"/>
-            <line x1="24" y1="37" x2="24" y2="43"/>
-            <line x1="5" y1="24" x2="11" y2="24"/>
-            <line x1="37" y1="24" x2="43" y2="24"/>
-            <line x1="10.5" y1="10.5" x2="14.7" y2="14.7"/>
-            <line x1="33.3" y1="33.3" x2="37.5" y2="37.5"/>
-            <line x1="37.5" y1="10.5" x2="33.3" y2="14.7"/>
-            <line x1="14.7" y1="33.3" x2="10.5" y2="37.5"/>
-          </svg>
-        </div>
         <div class="tl-time">08:00</div>
-        <div class="tl-event">УТРО ЖЕНИХА И НЕВЕСТЫ</div>
+        <div class="tl-marker"></div>
+        <div class="tl-body">
+          <div class="tl-icon">
+            <!-- Sun / morning -->
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+              <circle cx="24" cy="24" r="7"/>
+              <line x1="24" y1="5" x2="24" y2="11"/>
+              <line x1="24" y1="37" x2="24" y2="43"/>
+              <line x1="5" y1="24" x2="11" y2="24"/>
+              <line x1="37" y1="24" x2="43" y2="24"/>
+              <line x1="10.5" y1="10.5" x2="14.7" y2="14.7"/>
+              <line x1="33.3" y1="33.3" x2="37.5" y2="37.5"/>
+              <line x1="37.5" y1="10.5" x2="33.3" y2="14.7"/>
+              <line x1="14.7" y1="33.3" x2="10.5" y2="37.5"/>
+            </svg>
+          </div>
+          <div class="tl-text">
+            <div class="tl-event">УТРО ЖЕНИХА И НЕВЕСТЫ</div>
+          </div>
+        </div>
       </li>
 
       <li class="timeline-item reveal-stagger">
-        <div class="tl-icon">
-          <!-- Key / diamond ring -->
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
-            <circle cx="24" cy="20" r="10"/>
-            <path d="M18 20 L21 15 L24 18 L27 15 L30 20"/>
-            <line x1="24" y1="30" x2="24" y2="42"/>
-          </svg>
-        </div>
         <div class="tl-time">10:00</div>
-        <div class="tl-event">ВЫКУП НЕВЕСТЫ</div>
+        <div class="tl-marker"></div>
+        <div class="tl-body">
+          <div class="tl-icon">
+            <!-- Pair of women's high heels -->
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <g transform="translate(8,-2)">
+                <path d="M4 24 Q8 19 13 18 Q23 16 33 14 Q36 15 35 20 Q34 24 32 24 Z"/>
+                <path d="M32 24 L35 35 L33 35 L30 24"/>
+              </g>
+              <g transform="translate(0,9)">
+                <path d="M4 24 Q8 19 13 18 Q23 16 33 14 Q36 15 35 20 Q34 24 32 24 Z"/>
+                <path d="M32 24 L35 35 L33 35 L30 24"/>
+              </g>
+            </svg>
+          </div>
+          <div class="tl-text">
+            <div class="tl-event">ВЫКУП НЕВЕСТЫ</div>
+          </div>
+        </div>
       </li>
 
       <li class="timeline-item reveal-stagger">
-        <div class="tl-icon">
-          <!-- Wedding rings -->
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
-            <circle cx="19" cy="24" r="9"/>
-            <circle cx="29" cy="24" r="9"/>
-          </svg>
-        </div>
         <div class="tl-time">13:00</div>
-        <div class="tl-event">РЕГИСТРАЦИЯ БРАКА</div>
+        <div class="tl-marker"></div>
+        <div class="tl-body">
+          <div class="tl-icon">
+            <!-- Wedding rings -->
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+              <circle cx="19" cy="24" r="9"/>
+              <circle cx="29" cy="24" r="9"/>
+            </svg>
+          </div>
+          <div class="tl-text">
+            <div class="tl-event">РЕГИСТРАЦИЯ БРАКА</div>
+            <div class="tl-addr">ЗАГС — Дворец молодёжи,<br>г. Кызыл, ул. Кочетова, 72</div>
+          </div>
+        </div>
       </li>
 
       <li class="timeline-item reveal-stagger">
-        <div class="tl-icon">
-          <!-- Champagne glasses -->
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
-            <path d="M16 8 L20 24 Q20 30 16 32"/>
-            <path d="M22 8 L18 24 Q18 30 22 32"/>
-            <line x1="14" y1="32" x2="24" y2="32"/>
-            <line x1="19" y1="32" x2="19" y2="40"/>
-            <path d="M26 8 L30 24 Q30 30 26 32"/>
-            <path d="M32 8 L28 24 Q28 30 32 32"/>
-            <line x1="24" y1="32" x2="34" y2="32"/>
-            <line x1="29" y1="32" x2="29" y2="40"/>
-          </svg>
-        </div>
         <div class="tl-time">16:00</div>
-        <div class="tl-event">СБОР ГОСТЕЙ В РЕСТОРАНЕ</div>
+        <div class="tl-marker"></div>
+        <div class="tl-body">
+          <div class="tl-icon">
+            <!-- Two wine glasses -->
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 9 L21 9 Q21 17 16 20 Q11 17 11 9 Z"/>
+              <line x1="16" y1="20" x2="16" y2="37"/>
+              <line x1="11" y1="38" x2="21" y2="38"/>
+              <path d="M27 9 L37 9 Q37 17 32 20 Q27 17 27 9 Z"/>
+              <line x1="32" y1="20" x2="32" y2="37"/>
+              <line x1="27" y1="38" x2="37" y2="38"/>
+            </svg>
+          </div>
+          <div class="tl-text">
+            <div class="tl-event">СБОР ГОСТЕЙ В РЕСТОРАНЕ</div>
+            <div class="tl-addr">Ресторан «Аристократ»,<br>г. Кызыл, ул. Каа-Хем, 110</div>
+          </div>
+        </div>
       </li>
 
       <li class="timeline-item reveal-stagger">
-        <div class="tl-icon">
-          <!-- Plate + cutlery -->
-          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
-            <circle cx="24" cy="24" r="10"/>
-            <line x1="10" y1="10" x2="10" y2="38"/>
-            <path d="M7 10 L7 21 Q10 25 13 21 L13 10"/>
-            <line x1="38" y1="10" x2="38" y2="38"/>
-            <path d="M35 10 L41 10 L41 19 Q41 23 38 23"/>
-          </svg>
-        </div>
         <div class="tl-time">17:00</div>
-        <div class="tl-event">НАЧАЛО ПРАЗДНИЧНОГО БАНКЕТА</div>
+        <div class="tl-marker"></div>
+        <div class="tl-body">
+          <div class="tl-icon">
+            <!-- Plate + cutlery -->
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+              <circle cx="24" cy="24" r="10"/>
+              <line x1="10" y1="10" x2="10" y2="38"/>
+              <path d="M7 10 L7 21 Q10 25 13 21 L13 10"/>
+              <line x1="38" y1="10" x2="38" y2="38"/>
+              <path d="M35 10 L41 10 L41 19 Q41 23 38 23"/>
+            </svg>
+          </div>
+          <div class="tl-text">
+            <div class="tl-event">НАЧАЛО ПРАЗДНИЧНОГО БАНКЕТА</div>
+          </div>
+        </div>
       </li>
 
     </ul>
@@ -299,12 +375,12 @@
     <h2 class="section-heading">ДЕТАЛИ</h2>
     <div class="details-grid">
       <div class="details-item reveal-stagger">
-        <h3 class="details-title">/Подарки</h3>
-        <p class="details-text">Мы не хотим обременять вас выбором подарка, поэтому будем рады вкладу в бюджет нашей молодой семьи.</p>
+        <h3 class="details-title">Подарки</h3>
+        <p class="details-text">Мы не хотим обременять вас выбором<br>подарка, поэтому будем рады вкладу в<br>бюджет нашей молодой семьи.</p>
       </div>
       <div class="details-item reveal-stagger">
-        <h3 class="details-title">/Маленькие гости</h3>
-        <p class="details-text">Свадебное торжество предполагает участие только взрослых. Пожалуйста, позаботьтесь о том, чтобы провести этот вечер без детей.</p>
+        <h3 class="details-title">Маленькие гости</h3>
+        <p class="details-text">Свадебное торжество предполагает<br>участие только взрослых.<br>Пожалуйста, позаботьтесь о том,<br>чтобы провести этот вечер без детей.</p>
       </div>
     </div>
   </div>
@@ -365,6 +441,20 @@
     <p>Спасибо что подтвердили своё присутствие, ждём вас в день свадьбы!</p>
   </div>
 </div>
+
+<!-- ░░ CONTACTS ░░ -->
+<section id="contacts" class="section-white reveal">
+  <div class="container narrow">
+    <h2 class="section-heading">КОНТАКТЫ</h2>
+    <p class="contacts-text">
+      По всем вопросам, связанным с мероприятием, вы сможете связаться с нами:
+    </p>
+    <div class="contacts-list">
+      <p class="contact-person">Сайдаш <a href="tel:+79771995267" class="contact-phone">+7 (977) 199 52 67</a></p>
+      <p class="contact-person">Сырга <a href="tel:+79999663454" class="contact-phone">+7 (999) 966 34 54</a></p>
+    </div>
+  </div>
+</section>
 
 <!-- ░░ FOOTER ░░ -->
 <footer id="footer">
