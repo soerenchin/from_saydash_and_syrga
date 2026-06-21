@@ -822,7 +822,7 @@ body.intro-open .hero-photo { opacity: 1; }
 .location-overlay {
   position: absolute;
   top: 0; left: 0; right: 0;
-  padding: 44px 24px 90px;
+  padding: 28px 24px 90px;
   text-align: center;
   background: linear-gradient(to bottom,
     rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.85) 52%, rgba(255,255,255,0) 100%);
@@ -834,6 +834,9 @@ body.intro-open .hero-photo { opacity: 1; }
 .location-overlay .location-addr {
   color: var(--dark);
   margin-bottom: 0;
+}
+.location-venue {
+  font-size: 1.45rem;
 }
 
 .location-addr {
@@ -1306,7 +1309,7 @@ body.intro-open .hero-photo { opacity: 1; }
 }
 .finish-signature {
   font-family: 'Bickham Script', 'Annabelle', 'Great Vibes', cursive;
-  font-size: clamp(1.7rem, 6vw, 2.5rem);
+  font-size: clamp(1.9rem, 6.6vw, 2.75rem);
   font-weight: 400;
   color: #fff;
   line-height: 1.1;
