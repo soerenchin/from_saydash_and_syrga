@@ -273,35 +273,34 @@ if (stickyBtn) {
     return ok;
   }
 
-  // Web3Forms (https://web3forms.com) — Access Key получен на soerenchin@gmail.com.
-  // Это публичный ключ формы, не секрет — его и положено вставлять в клиентский код.
-  const WEB3FORMS_ACCESS_KEY = '659a548b-6a1b-4dbd-baa6-2ee88d012ec3';
-  const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+  // Наш самописный модуль (mailer/index.js), задеплоенный как Yandex Cloud
+  // Function. Замените на публичный URL вызова вашей функции, напр.:
+  //   https://functions.yandexcloud.net/d4e1abcdef123456789
+  const MAILER_ENDPOINT = 'https://functions.yandexcloud.net/d4e2tm81tjkve3grf1jt';
 
-  // Отправка через Web3Forms (email → soerenchin@gmail.com) + локальный бэкап.
+  // Отправка на собственный модуль (email → soerenchin@gmail.com) + локальный бэкап.
   async function submit(data) {
     const entries = JSON.parse(localStorage.getItem('rsvpEntries') || '[]');
     entries.push({ ...data, ts: new Date().toISOString() });
     localStorage.setItem('rsvpEntries', JSON.stringify(entries));
 
-    const res = await fetch(WEB3FORMS_ENDPOINT, {
+    const res = await fetch(MAILER_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
       body: JSON.stringify({
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: `Подтверждение участия — ${data.name}`,
-        'Фамилия и имя': data.name,
-        'Присутствие':   data.attending,
-        ...(data.partner ? { 'Фамилия и имя пары': data.partner } : {}),
+        name:      data.name,
+        attending: data.attending,
+        partner:   data.partner || '',
+        website:   '',            // honeypot — настоящие пользователи оставляют пустым
       }),
     });
 
     const info = await res.json().catch(() => ({}));
-    if (!res.ok || !info.success) {
-      throw new Error(info?.message || `Web3Forms error ${res.status}`);
+    if (!res.ok || !info.ok) {
+      throw new Error(info?.error || `Mailer error ${res.status}`);
     }
   }
 
