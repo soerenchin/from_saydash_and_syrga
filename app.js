@@ -273,32 +273,35 @@ if (stickyBtn) {
     return ok;
   }
 
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xjgzlplj';
+  // Web3Forms (https://web3forms.com) — Access Key получен на soerenchin@gmail.com.
+  // Это публичный ключ формы, не секрет — его и положено вставлять в клиентский код.
+  const WEB3FORMS_ACCESS_KEY = '659a548b-6a1b-4dbd-baa6-2ee88d012ec3';
+  const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 
-  // Send to Formspree (email → soerenchin@gmail.com) + save locally as fallback.
-  // Используем FormData (multipart) вместо JSON: «простой» запрос без CORS-preflight,
-  // именно так Formspree рекомендует отправлять формы через fetch.
+  // Отправка через Web3Forms (email → soerenchin@gmail.com) + локальный бэкап.
   async function submit(data) {
     const entries = JSON.parse(localStorage.getItem('rsvpEntries') || '[]');
     entries.push({ ...data, ts: new Date().toISOString() });
     localStorage.setItem('rsvpEntries', JSON.stringify(entries));
 
-    const fd = new FormData();
-    fd.append('Фамилия и имя', data.name);
-    fd.append('Присутствие',   data.attending);
-    if (data.partner) fd.append('Фамилия и имя пары', data.partner);
-    fd.append('_subject', `Подтверждение участия — ${data.name}`);
-
-    // Content-Type не задаём вручную — браузер сам проставит multipart-границу
-    const res = await fetch(FORMSPREE_ENDPOINT, {
+    const res = await fetch(WEB3FORMS_ENDPOINT, {
       method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: fd,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: `Подтверждение участия — ${data.name}`,
+        'Фамилия и имя': data.name,
+        'Присутствие':   data.attending,
+        ...(data.partner ? { 'Фамилия и имя пары': data.partner } : {}),
+      }),
     });
 
-    if (!res.ok) {
-      const info = await res.json().catch(() => ({}));
-      throw new Error(info?.errors?.[0]?.message || `Formspree error ${res.status}`);
+    const info = await res.json().catch(() => ({}));
+    if (!res.ok || !info.success) {
+      throw new Error(info?.message || `Web3Forms error ${res.status}`);
     }
   }
 
