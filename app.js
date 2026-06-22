@@ -241,6 +241,9 @@ if (stickyBtn) {
 /* ── RSVP FORM ── */
 (function initRSVP() {
 
+  // Значение варианта «приду с парой» — при нём показываем второе поле
+  const PARTNER_VALUE = 'Смогу присутствовать. Приду с парой.';
+
   // Validate
   function validate(form) {
     let ok = true;
@@ -258,25 +261,39 @@ if (stickyBtn) {
       opt.classList.toggle('error', !attendChecked);
     });
 
+    // имя пары — обязательно, если выбран вариант «приду с парой»
+    const partner = form.partnerName;
+    if (partner) {
+      const partnerRequired = attendChecked && attendChecked.value === PARTNER_VALUE;
+      const partnerEmpty = partnerRequired && !partner.value.trim();
+      partner.classList.toggle('error', partnerEmpty);
+      if (partnerEmpty) ok = false;
+    }
+
     return ok;
   }
 
   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xjgzlplj';
 
-  // Send to Formspree (email → soerenchin@gmail.com) + save locally as fallback
+  // Send to Formspree (email → soerenchin@gmail.com) + save locally as fallback.
+  // Используем FormData (multipart) вместо JSON: «простой» запрос без CORS-preflight,
+  // именно так Formspree рекомендует отправлять формы через fetch.
   async function submit(data) {
     const entries = JSON.parse(localStorage.getItem('rsvpEntries') || '[]');
     entries.push({ ...data, ts: new Date().toISOString() });
     localStorage.setItem('rsvpEntries', JSON.stringify(entries));
 
+    const fd = new FormData();
+    fd.append('Фамилия и имя', data.name);
+    fd.append('Присутствие',   data.attending);
+    if (data.partner) fd.append('Фамилия и имя пары', data.partner);
+    fd.append('_subject', `Подтверждение участия — ${data.name}`);
+
+    // Content-Type не задаём вручную — браузер сам проставит multipart-границу
     const res = await fetch(FORMSPREE_ENDPOINT, {
       method: 'POST',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        'Фамилия и имя':  data.name,
-        'Присутствие':    data.attending,
-        _subject:         `Подтверждение участия — ${data.name}`,
-      }),
+      headers: { 'Accept': 'application/json' },
+      body: fd,
     });
 
     if (!res.ok) {
@@ -288,6 +305,24 @@ if (stickyBtn) {
   // Form submit
   const form = document.getElementById('rsvpForm');
   if (form) {
+
+    // Показ/скрытие второго поля «Фамилия и имя пары»
+    const partnerGroup = document.getElementById('partnerNameGroup');
+    const partnerInput = form.partnerName;
+    function togglePartner() {
+      const checked = form.querySelector('[name="attending"]:checked');
+      const show = !!checked && checked.value === PARTNER_VALUE;
+      if (partnerGroup) partnerGroup.hidden = !show;
+      if (!show && partnerInput) {
+        partnerInput.value = '';
+        partnerInput.classList.remove('error');
+      }
+    }
+    form.querySelectorAll('[name="attending"]').forEach(r =>
+      r.addEventListener('change', togglePartner)
+    );
+    togglePartner();
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!validate(form)) return;
@@ -300,14 +335,26 @@ if (stickyBtn) {
       if (btnLoad) btnLoad.style.display = '';
       if (submitBtn) submitBtn.disabled = true;
 
+      const attending = form.querySelector('[name="attending"]:checked')?.value || '';
       const data = {
         name:      form.guestName.value.trim(),
-        attending: form.querySelector('[name="attending"]:checked')?.value || '',
+        attending: attending,
+        partner:   attending === PARTNER_VALUE ? (form.partnerName?.value.trim() || '') : '',
       };
 
       try {
         await submit(data);
-        document.getElementById('rsvpSuccess').classList.add('visible');
+        // Показываем благодарность внутри рамки анкеты — без перехода на финиш-оверлей.
+        // Саму рамку (.rsvp-form) сохраняем вместе с её размерами: фиксируем текущую
+        // высоту, чтобы рамка не схлопнулась под короткий текст, и заменяем содержимое.
+        form.style.minHeight = form.offsetHeight + 'px';
+        form.classList.add('rsvp-form--done');
+        const thanks = document.createElement('p');
+        thanks.className = 'rsvp-thanks';
+        thanks.textContent = 'Спасибо, что заполнили анкету';
+        form.replaceChildren(thanks);
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
       } catch (err) {
         console.error('RSVP submit failed:', err);
         alert('Не удалось отправить форму. Проверьте подключение к интернету и попробуйте ещё раз.');
