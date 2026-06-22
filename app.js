@@ -86,6 +86,16 @@ if (stickyBtn) {
   }, { passive: true });
 }
 
+// Прячем плавающие кнопки (RSVP + музыка), когда в кадре футер —
+// иначе они перекрывают ссылку на телеграм-группу в самом низу.
+const footerEl = document.getElementById('footer');
+if (footerEl) {
+  const footerObserver = new IntersectionObserver((entries) => {
+    document.body.classList.toggle('footer-in-view', entries[0].isIntersecting);
+  }, { threshold: 0.15 });
+  footerObserver.observe(footerEl);
+}
+
 /* ── COUNTDOWN ── */
 (function initCountdown() {
   const wedding = new Date('2026-08-02T17:00:00+07:00');

@@ -254,6 +254,14 @@ section {
   transform: translateY(-2px);
 }
 
+/* Прячем плавающие кнопки над футером — иначе перекрывают ссылку на ТГ-группу */
+body.footer-in-view .sticky-rsvp,
+body.footer-in-view .music-toggle {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(16px);
+}
+
 /* ── MUSIC TOGGLE ── */
 .music-toggle {
   position: fixed;
