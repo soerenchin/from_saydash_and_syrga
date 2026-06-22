@@ -396,28 +396,33 @@
 
       <div class="form-group">
         <label for="guestName">Фамилия и имя</label>
-        <input type="text" id="guestName" name="guestName" placeholder="Антон Иванов, Анна Иванова" required autocomplete="name" />
+        <input type="text" id="guestName" name="guestName" placeholder="Иванов Антон" required autocomplete="name" />
       </div>
 
       <div class="form-group">
         <label>Планируете ли вы присутствовать на нашей свадьбе?</label>
         <div class="attend-options">
           <label class="attend-option">
-            <input type="radio" name="attending" value="Смогу / сможем присутствовать" required />
+            <input type="radio" name="attending" value="Смогу присутствовать." required />
             <span class="attend-mark"></span>
-            <span class="attend-text">Смогу / сможем присутствовать</span>
+            <span class="attend-text">Смогу присутствовать.</span>
           </label>
           <label class="attend-option">
-            <input type="radio" name="attending" value="Затрудняюсь ответить, сообщу позже" />
+            <input type="radio" name="attending" value="Смогу присутствовать. Приду с парой." />
             <span class="attend-mark"></span>
-            <span class="attend-text">Затрудняюсь ответить, сообщу позже</span>
+            <span class="attend-text">Смогу присутствовать. Приду с парой.</span>
           </label>
           <label class="attend-option">
-            <input type="radio" name="attending" value="Не смогу прийти" />
+            <input type="radio" name="attending" value="Не смогу прийти." />
             <span class="attend-mark"></span>
-            <span class="attend-text">Не смогу прийти</span>
+            <span class="attend-text">Не смогу прийти.</span>
           </label>
         </div>
+      </div>
+
+      <div class="form-group" id="partnerNameGroup" hidden>
+        <label for="partnerName">Фамилия и имя вашей пары</label>
+        <input type="text" id="partnerName" name="partnerName" placeholder="Иванова Анна" autocomplete="off" />
       </div>
 
       <button type="submit" class="submit-btn" id="submitBtn">

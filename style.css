@@ -1048,6 +1048,8 @@ body.intro-open .hero-photo { opacity: 1; }
 }
 
 .form-group { display: flex; flex-direction: column; gap: 8px; }
+/* hidden должен скрывать группу, несмотря на display:flex выше */
+.form-group[hidden] { display: none; }
 
 .form-group label {
   font-size: 0.72rem;
@@ -1177,6 +1179,28 @@ body.intro-open .hero-photo { opacity: 1; }
 }
 .submit-btn:active { transform: translateY(0); }
 .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* Рамка анкеты после отправки: сохраняем размеры, центрируем благодарность */
+.rsvp-form--done {
+  justify-content: center;
+  align-items: center;
+}
+
+/* Благодарность на месте анкеты после отправки */
+.rsvp-thanks {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+  color: var(--dark);
+  text-align: center;
+  padding: 32px 0;
+  animation: rsvpThanksIn 0.6s var(--ease) both;
+}
+@keyframes rsvpThanksIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 /* SUCCESS OVERLAY */
 .rsvp-success-overlay {
